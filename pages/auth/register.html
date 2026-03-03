@@ -1,0 +1,125 @@
+<!--Nguyen Ba Thien An - B2405484-->
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereal Blue | Luxury Style</title>
+    <link rel="stylesheet" href="register.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="menu-mobile" id="mobile-toggle"><i class="fas fa-bars"></i></div>
+        <div class="logo">ETHEREAL</div>
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="#" class="nav-item active">Trang chủ</a></li>
+            <li><a href="#hot-section" class="nav-item">Xu hướng</a></li>
+            <li><a href="#sale-section" class="nav-item">Khuyến mãi</a></li>
+            <li><a href="#">Sản phẩm</a></li>
+        </ul>
+        <div class="nav-icons">
+            <button class="btn-login"><i class="far fa-user"></i> Đăng nhập</button>
+            <button class="btn-cart"><i class="fas fa-shopping-bag"></i> Giỏ hàng <span id="cart-count">(0)</span></button>
+        </div>
+    </nav>
+
+    <main class="register-wrapper">
+    <div class="register-container glass-card">
+        <div class="register-header">
+            <h2 class="section-title">TÀI KHOẢN</h2>
+            <p class="subtitle">Chào mừng bạn đã đến với Ethereal Blue</p>
+        </div>
+
+        <form class="register-form">
+            <div class="input-group">
+                <label for="email">Họ Tên<span class="mausao">*</span></label>
+                <input type="text" id="fullname" placeholder="Nguyen Van A" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email<span class="mausao">*</span></label>
+                <input type="email" id="email" placeholder="nguyenvana@email.com" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Số điện thoại<span class="mausao">*</span></label>
+                <input type="tel" id="phone" placeholder="0123456789" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Mật Khẩu<span class="mausao">*</span></label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="input-group">
+                <label for="confirm-password">Nhập Lại Mật khẩu<span class="mausao">*</span></label>
+                <input type="password" id="confirm-password" placeholder="••••••••" required>
+            </div>
+
+            <div class="input-group">
+                <label for="address">Địa chỉ<span class="mausao">*</span></label>
+                <input type="text" id="address" placeholder="Quan 1, Tp.HCM" required>
+            </div>
+
+    <div class="contact-to-you">
+        <h3 class="contact-title">Liên hệ</h3>
+        <p class="contact-subtitle">Chúng tôi có thể liên hệ với bạn qua hình thức</p>
+    
+    <div class="checkbox-group">
+            <label>
+                <input type="checkbox" name="contact" value="call">
+                Gọi điện
+            </label>
+            <label>
+                <input type="checkbox" name="contact" value="zalo"> 
+                Zalo
+            </label>
+            <label>
+                <input type="checkbox" name="contact" value="email"> 
+                Email
+            </label>
+        </div>
+    </div>
+
+            <button type="submit" class="btn-register-submit">Đăng Ký</button>
+        </form>
+
+        <div class="register-footer">
+            <p>Bạn đã có tài khoản?</p>
+            <a href="./login.html" class="link-login">ĐĂNG NHẬP TẠI ĐÂY</a>
+        </div>
+
+    </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3 class="logo">ETHEREAL</h3>
+                <p>Thương hiệu thời trang cao cấp mang phong cách hiện đại, tối giản. Chúng tôi tin rằng vẻ đẹp thực sự
+                    đến từ sự tinh tế và chất lượng vượt thời gian.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>Thông tin liên hệ</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Đường Blue, Quận 1, TP. HCM</p>
+                <p><i class="fas fa-phone"></i> +84 123 456 789</p>
+                <p><i class="fas fa-envelope"></i> contact@etherealblue.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Ethereal Blue. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
