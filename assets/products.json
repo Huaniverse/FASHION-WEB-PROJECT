@@ -5,9 +5,9 @@
         "category": "Áo khoác",
         "price": 500000,
         "images": [
-            "/assets/images/ao-khoac/duStreetwear/duStreetwear1.JPG",
-            "/assets/images/ao-khoac/duStreetwear/duStreetwear2.JPG",
-            "/assets/images/ao-khoac/duStreetwear/duStreetwear3.JPG"
+            "/assets/images/ao-khoac/duStreetwear/duStreetwear1.jpg",
+            "/assets/images/ao-khoac/duStreetwear/duStreetwear2.jpg",
+            "/assets/images/ao-khoac/duStreetwear/duStreetwear3.jpg"
         ],
         "description": "Họa tiết chữ ký in nổi tinh xảo nghệ thuật ở mặt sau tạo điểm nhấn và thu hút ánh nhìn",
         "sizes": [
@@ -24,9 +24,9 @@
         "category": "Áo",
         "price": 450000,
         "images": [
-            "/assets/images/ao/ao-somi-boxy/ao-somi-boxy1.JPG",
-            "/assets/images/ao/ao-somi-boxy/ao-somi-boxy2.JPG",
-            "/assets/images/ao/ao-somi-boxy/ao-somi-boxy3.JPG"
+            "/assets/images/ao/ao-somi-boxy/ao-somi-boxy1.jpg",
+            "/assets/images/ao/ao-somi-boxy/ao-somi-boxy2.jpg",
+            "/assets/images/ao/ao-somi-boxy/ao-somi-boxy3.jpg"
         ],
         "description": "Chiếc áo sơ mi Boxy in nhiệt là lựa chọn hoàn hảo cho những ai yêu thích phong cách basic, unisex, tối giản nhưng vẫn nối bật",
         "sizes": [
@@ -43,8 +43,8 @@
         "category": "Áo",
         "price": 460000,
         "images": [
-            "/assets/images/ao/ao-soc-the-thao/ao-soc-the-thao1.JPG",
-            "/assets/images/ao/ao-soc-the-thao/ao-soc-the-thao2.JPG"
+            "/assets/images/ao/ao-soc-the-thao/ao-soc-the-thao1.jpg",
+            "/assets/images/ao/ao-soc-the-thao/ao-soc-the-thao2.jpg"
         ],
         "description": "Áo Sọc Thể Thao Unisex LVC Form Rộng – thiết kế mang hơi hướng thể thao hiện đại, năng động và trẻ trung",
         "sizes": [
@@ -61,9 +61,9 @@
         "category": "Áo",
         "price": 500000,
         "images": [
-            "/assets/images/ao/sweeter-ni-bong/sweeter-ni-bong1.JPG",
-            "/assets/images/ao/sweeter-ni-bong/sweeter-ni-bong2.JPG",
-            "/assets/images/ao/sweeter-ni-bong/sweeter-ni-bong3.JPG"
+            "/assets/images/ao/sweeter-ni-bong/sweeter-ni-bong1.jpg",
+            "/assets/images/ao/sweeter-ni-bong/sweeter-ni-bong2.jpg",
+            "/assets/images/ao/sweeter-ni-bong/sweeter-ni-bong3.jpg"
         ],
         "description": "thiết kế dành cho những ai yêu thích phong cách tối giản nhưng vẫn muốn giữ nét cá tính riêng",
         "sizes": [
@@ -80,9 +80,9 @@
         "category": "Quần",
         "price": 1000000,
         "images": [
-            "/assets/images/quan/quan-jeans-wash/quan-jeans-wash1.JPG",
-            "/assets/images/quan/quan-jeans-wash/quan-jeans-wash2.JPG",
-            "/assets/images/quan/quan-jeans-wash/quan-jeans-wash3.JPG"
+            "/assets/images/quan/quan-jeans-wash/quan-jeans-wash1.jpg",
+            "/assets/images/quan/quan-jeans-wash/quan-jeans-wash2.jpg",
+            "/assets/images/quan/quan-jeans-wash/quan-jeans-wash3.jpg"
         ],
         "description": "là lựa chọn hoàn hảo cho những ai yêu thích sự phá cách, nổi bật với đường nét cơ thể được ôm trọn bởi thiết kế chiết gọn eo, nhưng bo chun phía sau lưng tạo cảm giác thoải mái khi mặc",
         "sizes": [
@@ -99,10 +99,10 @@
         "category": "Phụ kiện",
         "price": 100000,
         "images": [
-            "/assets/images/phu-kien/khan-lua-vuong/khan-lua-vuong1.JPG",
-            "/assets/images/phu-kien/khan-lua-vuong/khan-lua-vuong2.JPG",
-            "/assets/images/phu-kien/khan-lua-vuong/khan-lua-vuong3.JPG",
-            "/assets/images/phu-kien/khan-lua-vuong/khan-lua-vuong4.JPG"
+            "/assets/images/phu-kien/khan-lua-vuong/khan-lua-vuong1.jpg",
+            "/assets/images/phu-kien/khan-lua-vuong/khan-lua-vuong2.jpg",
+            "/assets/images/phu-kien/khan-lua-vuong/khan-lua-vuong3.jpg",
+            "/assets/images/phu-kien/khan-lua-vuong/khan-lua-vuong4.jpg"
         ],
         "description": "Phụ kiện tinh tế giúp nâng tầm outfit hằng ngày",
         "sizes": [
@@ -117,7 +117,7 @@
         "category": "Phụ kiện",
         "price": 997000,
         "images": [
-            "/assets/images/phu-kien/fireflies-light/fireflies-light.JPG"
+            "/assets/images/phu-kien/fireflies-light/fireflies-light.jpg"
         ],
         "description": "Light Stick cực cool",
         "sizes": [
@@ -228,9 +228,9 @@
         "category": "Áo",
         "price": 2000000,
         "images": [
-            "/assets/images/ao-khoac/sweater/sweater1.JPG",
-            "/assets/images/ao-khoac/sweater/sweater2.JPG",
-            "/assets/images/ao-khoac/sweater/sweater3.JPG"
+            "/assets/images/ao-khoac/sweater/sweater1.jpg",
+            "/assets/images/ao-khoac/sweater/sweater2.jpg",
+            "/assets/images/ao-khoac/sweater/sweater3.jpg"
         ],
         "description": "Áo sweater len mềm mịn, giữ ấm tốt, thiết kế đơn giản nhưng thời thượng.",
         "sizes": [
@@ -341,8 +341,8 @@
         "category": "Suit",
         "price": 4500000,
         "images": [
-            "/assets/images/suit/suitxam1.JPG",
-            "/assets/images/suit/suitxam2.JPG"
+            "/assets/images/suit/suitxam1.jpg",
+            "/assets/images/suit/suitxam2.jpg"
         ],
         "description": "Bộ suit màu xám than lịch lãm, cắt may theo form dáng hiện đại, tôn dáng người mặc.",
         "sizes": [
