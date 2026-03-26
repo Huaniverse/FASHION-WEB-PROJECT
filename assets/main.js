@@ -1,441 +1,411 @@
-/* ===================================================
-   MAIN.JS — DEUX | Trang Chủ
-   Chức năng:
-     - Điều hướng mobile menu (hamburger)
-     - Scroll spy: highlight nav item theo section đang xem
-     - Thay đổi style header khi scroll
-     - Tải và render sản phẩm từ products.json (HOT / SALE)
-     - Kéo-thả carousel (mouse + touch)
-     - Thêm vào giỏ hàng
-     - Hiển thị thông báo toast
-   =================================================== */
+// Lưu trữ qua localStorage:
+//   - "eb_users"             : mảng tài khoản đã đăng ký
+//   - "eb_session"           : tài khoản đang đăng nhập (không có mật khẩu)
+//   - "eb_remembered_email"  : email được ghi nhớ khi tick "Ghi nhớ đăng nhập"
+//   - "eb_reset"             : token reset mật khẩu tạm thời (demo)
 
-document.addEventListener('DOMContentLoaded', function() {
+/** Lấy session đang đăng nhập */
+function getSession() {
+    try {
+        const data = JSON.parse(localStorage.getItem("eb_session"));
+        if (data && typeof data === "object" && !Array.isArray(data) && Object.keys(data).length > 0) {
+            return data;
+        }
+    } catch (e) {
+    }
+    return null;
+}
 
-    // ── Lấy các phần tử DOM cần thiết ──────────────────────────────────
-    const mobileToggle  = document.getElementById('mobile-toggle');   // Nút hamburger menu
-    const navMenu       = document.getElementById('nav-menu');         // Danh sách nav links
-    const mobileActions = document.querySelector('.nav-mobile-actions'); // Khu vực nút đăng nhập/giỏ hàng mobile
-    const sections      = document.querySelectorAll('section');        // Tất cả section để scroll spy
-    const navItems      = document.querySelectorAll('.nav-item');      // Các link điều hướng
-    const header        = document.querySelector('header');            // Phần tử header
-    const shopBtn       = document.querySelector('.btn-shop');         // Nút "Khám phá ngay"
+/** Kiểm tra đăng nhập, tự động chuyển hướng nếu chưa đăng nhập */
+function requireLogin(message, delay) {
+    const session = getSession();
+    if (session) return true;
 
-    // ── Nút "Khám phá ngay" → chuyển sang trang danh sách sản phẩm
-    if (shopBtn) {
-        shopBtn.addEventListener('click', function() {
-            window.location.href = 'pages/product-list/product-list.html';
-        });
+    if (message) {
+        // Đảm bảo hàm showNotification đã được định nghĩa
+        showNotification(message, "#e67e22");
     }
 
-    // ── Khởi tạo giỏ hàng từ localStorage (theo từng user đăng nhập) ──
-    const _initSession = JSON.parse(localStorage.getItem('eb_session') || 'null');
-    // Key giỏ hàng riêng theo email: "cart:user@email.com" hoặc "cart:guest"
-    const _cartKey = _initSession ? `cart:${_initSession.email}` : 'cart:guest';
-    let cart = JSON.parse(localStorage.getItem(_cartKey)) || [];
+    const redirect = function () {
+        const returnUrl = encodeURIComponent(
+            window.location.pathname + window.location.search,
+        );
+        window.location.href =
+            "/pages/auth/auth.html?mode=login&returnUrl=" + returnUrl;
+    };
 
-    // Hiển thị số lượng giỏ hàng lên Header ngay khi tải trang
-    updateCartCount();
+    if (delay && delay > 0) {
+        setTimeout(redirect, delay);
+    } else {
+        redirect();
+    }
+    return false;
+}
 
-    // ── MOBILE MENU (HAMBURGER) ─────────────────────────────────────────
-    if (mobileToggle) {
-        // Click nút hamburger → toggle class "active" để show/hide menu
-        mobileToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            // Hiện/ẩn khu vực nút Login/Cart theo trạng thái menu
-            if (mobileActions) {
-                if (navMenu.classList.contains('active')) {
-                    mobileActions.style.display = 'flex';
-                } else {
-                    mobileActions.style.display = 'none';
-                }
-            }
-        });
+/** Lấy key giỏ hàng duy nhất cho từng user */
+function getCartKey() {
+    const session = getSession();
+    if (!session) return null;
+    return "cart:" + session.email;
+}
+
+/** Lấy danh sách sản phẩm trong giỏ */
+function getCart() {
+    const key = getCartKey();
+    if (!key) return [];
+    return JSON.parse(localStorage.getItem(key) || "[]");
+}
+
+/** Lưu giỏ hàng */
+function saveCart(cart) {
+    const key = getCartKey();
+    if (key) {
+        localStorage.setItem(key, JSON.stringify(cart));
+    }
+}
+
+/** Cập nhật số lượng hiển thị trên icon giỏ hàng */
+function updateCartBadge() {
+    const cart = getCart();
+    let total = 0;
+    for (let i = 0; i < cart.length; i++) {
+        total = total + cart[i].quantity;
+    }
+    const badges = document.querySelectorAll("#cart-count, #cart-count-mobile");
+    for (let i = 0; i < badges.length; i++) {
+        badges[i].textContent = "(" + total + ")";
+    }
+}
+
+/** Định dạng tiền tệ VNĐ */
+function formatPrice(price) {
+    return price.toLocaleString("vi-VN") + "đ";
+}
+
+/** Kiểm tra trạng thái sản phẩm */
+function getProductStatus(product) {
+    const hasSale = product.sale && Number(product.sale) > 0;
+    const isHot = product.hot === true;
+    let discountedPrice = product.price;
+    if (hasSale) {
+        discountedPrice = Math.round(
+            product.price * (1 - Number(product.sale) / 100),
+        );
+    }
+    return { hasSale, isHot, discountedPrice };
+}
+
+/** Hiển thị thông báo */
+function showNotification(message, color = "#4CAF50", duration = 3000) {
+    const oldNotifs = document.querySelectorAll("[data-notification]");
+    for (let i = 0; i < oldNotifs.length; i++) {
+        oldNotifs[i].remove();
     }
 
-    // ── Đóng mobile menu khi resize lên màn hình desktop (> 1130px) ────
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 1130) {
-            if (navMenu) {
-                navMenu.classList.remove('active');
-            }
-            if (mobileActions) {
-                mobileActions.style.display = 'none';
-            }
-        }
-    });
+    const notification = document.createElement("div");
+    notification.setAttribute("data-notification", "true");
+    notification.style.cssText =
+        "position: fixed; top: 90px; right: 20px;" +
+        "background: " +
+        color +
+        "; color: white;" +
+        "padding: 16px 24px; border-radius: 10px;" +
+        "box-shadow: 0 8px 25px rgba(0,0,0,0.2);" +
+        "z-index: 9999; font-weight: 600;" +
+        "animation: slideInNotif 0.5s ease-out;";
+    notification.textContent = message;
+    document.body.appendChild(notification);
 
-    // ── Đóng menu và cập nhật Active khi click vào nav item ────────────
-    navItems.forEach(function(link) {
-        link.addEventListener('click', function() {
-            navMenu.classList.remove('active');
-            if (mobileActions) {
-                mobileActions.style.display = 'none';
-            }
-            // Xóa active khỏi tất cả, thêm active vào link vừa click
-            navItems.forEach(function(item) {
-                item.classList.remove('active');
-            });
-            link.classList.add('active');
-        });
-    });
+    setTimeout(function () {
+        notification.style.animation = "slideOutNotif 0.3s ease-in forwards";
+        setTimeout(function () {
+            notification.remove();
+        }, 300);
+    }, duration);
+}
 
-    // ── XỬ LÝ SỰ KIỆN SCROLL ───────────────────────────────────────────
-    window.addEventListener('scroll', function() {
+/** Tạo thẻ sản phẩm */
+function createCard(product) {
+    const status = getProductStatus(product);
+    const hasSale = status.hasSale;
+    const isHot = status.isHot;
+    const discountedPrice = status.discountedPrice;
 
-        // 1. SCROLL SPY: Chỉ chạy nếu có các <section> (thường là trang chủ index.html)
-        const isHomePage = window.location.pathname === '/' ||
-                           window.location.pathname.endsWith('index.html');
-
-        if (sections.length > 0 && isHomePage) {
-            let current = ""; // ID section hiện tại đang trong viewport
-
-            // Xác định section nào đang được xem dựa trên vị trí scroll
-            sections.forEach(function(section) {
-                const sectionTop    = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                // Coi là "đang xem" khi đã scroll qua 1/3 chiều cao section
-                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            // Highlight nav item tương ứng với section đang xem
-            navItems.forEach(function(item) {
-                item.classList.remove('active');
-                if (current && item.getAttribute('href').includes(current)) {
-                    item.classList.add('active');
-                }
-                // Nếu scroll gần đầu trang → active link Home
-                if (pageYOffset < 200 &&
-                    (item.getAttribute('href') === '#' ||
-                     item.getAttribute('href') === '/index.html')) {
-                    item.classList.add('active');
-                }
-            });
-        }
-
-        // 2. HEADER STYLE: Thay đổi độ mờ và shadow khi scroll (áp dụng mọi trang)
-        if (header) {
-            if (window.scrollY > 50) {
-                // Đã scroll xuống → header đậm hơn, shadow rõ hơn
-                header.style.boxShadow = '0 15px 40px rgba(0,51,102,0.15)';
-                header.style.background = 'rgba(253, 251, 247, 0.85)';
-            } else {
-                // Ở đầu trang → header trong suốt hơn
-                header.style.boxShadow = '0 8px 32px rgba(31, 38, 135, 0.1)';
-                header.style.background = 'rgba(253, 251, 247, 0.7)';
-            }
-        }
-    });
-
-    // ── RENDER CARDS SẢN PHẨM TỪ JSON ─────────────────────────────────
-
-    /**
-     * Định dạng giá tiền theo chuẩn Việt Nam
-     * @param {number} price - Giá gốc (VNĐ)
-     * @returns {string} Chuỗi giá đã định dạng, ví dụ "1.200.000đ"
-     */
-    function formatPrice(price) {
-        return price.toLocaleString('vi-VN') + 'đ';
+    let badgeHTML = "";
+    if (hasSale) {
+        badgeHTML =
+            '<div class="badge badge-sale">SALE ' + product.sale + "%</div>";
+    } else if (isHot) {
+        badgeHTML = '<div class="badge badge-hot">HOT</div>';
     }
 
-    /**
-     * Tạo phần tử card sản phẩm
-     * @param {Object} product - Đối tượng sản phẩm từ products.json
-     * @returns {HTMLElement} Phần tử <div class="card"> đã được render đầy đủ
-     */
-    function createCard(product) {
-        // Kiểm tra sản phẩm có giảm giá không (sale khác rỗng, null, undefined, false, 0)
-        const hasSale = product.sale !== '' && product.sale !== null &&
-                        product.sale !== undefined && product.sale !== false &&
-                        product.sale !== 0;
-        const isHot = product.hot === true; // Có phải sản phẩm trending không
-
-        // Tính giá sau giảm nếu có sale
-        let discountedPrice = null;
-        if (hasSale) {
-            discountedPrice = Math.round(product.price * (1 - product.sale / 100));
-        }
-
-        // Tạo HTML badge (SALE xx% hoặc HOT)
-        let badgeHTML = '';
-        if (hasSale) {
-            badgeHTML = `<div class="badge badge-sale">SALE ${product.sale}%</div>`;
-        } else if (isHot) {
-            badgeHTML = `<div class="badge badge-hot">HOT</div>`;
-        }
-
-        // Tạo HTML hiển thị giá: nếu có sale thì hiện giá gốc + giá mới
-        let priceHTML = '';
-        if (hasSale) {
-            priceHTML = `<p class="card-price">
-                <span class="old-price">${formatPrice(product.price)}</span>
-                <span class="new-price">${formatPrice(discountedPrice)}</span>
-               </p>`;
-        } else {
-            priceHTML = `<p class="card-price">${formatPrice(product.price)}</p>`;
-        }
-
-        // Tạo phần tử card và gán nội dung HTML
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-            ${badgeHTML}
-            <div class="img-placeholder">
-                <img src="${product.images[0]}" alt="${product.name}" loading="lazy"
-                     onerror="this.src='https://placehold.co/500x500/e0e8f4/0056b3?text=No+Image'">
-            </div>
-            <div class="card-content">
-                <h3 class="card-title">${product.name}</h3>
-                ${priceHTML}
-                <button class="btn btn-primary btn-add">Thêm vào giỏ</button>
-            </div>
-        `;
-
-        // ── Xử lý sự kiện "Thêm vào giỏ" ─────────────────────────────
-        card.querySelector('.btn-add').addEventListener('click', function (e) {
-            e.preventDefault();
-
-            // Kiểm tra đăng nhập trước khi cho phép thêm vào giỏ
-            const session = JSON.parse(localStorage.getItem('eb_session') || 'null');
-            if (!session) {
-                showNotification('⚠️ Vui lòng đăng nhập để thêm vào giỏ hàng!', '#e67e22');
-                setTimeout(function() {
-                    // Lưu URL hiện tại để redirect về sau khi đăng nhập
-                    const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
-                    window.location.href = `/pages/auth/auth.html?mode=login&returnUrl=${returnUrl}`;
-                }, 1500);
-                return;
-            }
-
-            // Lấy giá thực tế (sau giảm hoặc giá gốc)
-            let price = '';
-            if (hasSale) {
-                price = formatPrice(discountedPrice);
-            } else {
-                price = formatPrice(product.price);
-            }
-
-            // Mặc định chọn size đầu tiên trong danh sách sizes của sản phẩm
-            let size = 'S';
-            if (product.sizes && product.sizes.length > 0) {
-                size = product.sizes[0];
-            }
-
-            // Tìm xem sản phẩm (cùng id + size) đã có trong giỏ chưa
-            const existingProduct = cart.find(function(p) {
-                return p.id === product.id && p.size === size;
-            });
-            if (existingProduct) {
-                // Đã có → chỉ tăng số lượng
-                existingProduct.quantity++;
-            } else {
-                // Chưa có → thêm mới vào mảng giỏ hàng
-                cart.push({
-                    id: product.id,
-                    title: product.name,
-                    price,
-                    quantity: 1,
-                    image: product.images[0],
-                    size: size,
-                    availableSizes: product.sizes
-                });
-            }
-
-            // Lưu giỏ hàng cập nhật vào localStorage
-            localStorage.setItem(_cartKey, JSON.stringify(cart));
-
-            // Cập nhật số đếm trên icon giỏ hàng ở header
-            updateCartCount();
-
-            // Hiển thị thông báo xác nhận
-            showNotification(`Đã thêm ${product.name} vào giỏ hàng!`);
-
-            // Phản hồi trực quan trên nút: đổi text + màu trong 2 giây
-            const btn = this;
-            const originalText = btn.textContent;
-            btn.textContent = '✓ Đã thêm';
-            btn.style.background = 'linear-gradient(135deg, #4CAF50, #81C784)';
-            setTimeout(function() {
-                btn.textContent = originalText;
-                btn.style.background = '';
-            }, 2000);
-        });
-
-        return card;
+    let priceHTML = "";
+    if (hasSale) {
+        priceHTML =
+            '<p class="card-price">' +
+            '<span class="old-price">' +
+            formatPrice(product.price) +
+            "</span>" +
+            '<span class="new-price">' +
+            formatPrice(discountedPrice) +
+            "</span>" +
+            "</p>";
+    } else {
+        priceHTML =
+            '<p class="card-price">' + formatPrice(product.price) + "</p>";
     }
 
-    /**
-     * Render danh sách sản phẩm vào 2 grid: HOT và SALE
-     * @param {Array} products - Mảng sản phẩm từ products.json
-     */
-    function renderProducts(products) {
-        const hotGrid  = document.getElementById('hot-grid');   // Khu vực sản phẩm xu hướng
-        const saleGrid = document.getElementById('sale-grid');  // Khu vực sản phẩm giảm giá
+    const productLink =
+        "/pages/product-detail/product-detail.html?id=" + product.id;
 
-        // Nếu không tìm thấy grid → đang không ở trang chủ, dừng lại
-        if (!hotGrid || !saleGrid) {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.id = product.id;
+    card.innerHTML =
+        badgeHTML +
+        '<a href="' +
+        productLink +
+        '" style="display: block; overflow: hidden; text-decoration: none;">' +
+        '    <div class="img-placeholder">' +
+        '        <img src="' +
+        product.images[0] +
+        '" alt="' +
+        product.name +
+        '" loading="lazy"' +
+        "             onerror=\"this.src='https://placehold.co/500x500/e0e8f4/0056b3?text=No+Image'\">" +
+        "    </div>" +
+        "</a>" +
+        '<div class="card-content">' +
+        '    <a href="' +
+        productLink +
+        '" style="text-decoration: none; color: inherit;">' +
+        '        <h3 class="card-title">' +
+        product.name +
+        "</h3>" +
+        "    </a>" +
+        "    " +
+        priceHTML +
+        '    <button class="btn btn-primary btn-add">' +
+        '        <i class="fa-solid fa-bag-shopping"></i> Thêm vào giỏ' +
+        "    </button>" +
+        "</div>";
+
+    // Sự kiện Thêm vào giỏ
+    card.querySelector(".btn-add").addEventListener("click", function (e) {
+        e.preventDefault();
+        
+        if (!requireLogin("⚠️ Vui lòng đăng nhập để thêm vào giỏ hàng!", 1500)) {
             return;
         }
 
-        products.forEach(function(product) {
-            const hasSale = product.sale !== '' && product.sale !== null &&
-                            product.sale !== undefined && product.sale !== false &&
-                            product.sale !== 0;
-            const isHot = product.hot === true;
-            const card = createCard(product);
+        let finalPrice = product.price;
+        if (hasSale) {
+            finalPrice = discountedPrice;
+        }
 
-            // Phân loại và đưa card vào grid tương ứng
-            if (hasSale) {
-                saleGrid.appendChild(card);      // Sản phẩm giảm giá → khu Sale
-            } else if (isHot) {
-                hotGrid.appendChild(card);       // Sản phẩm hot → khu Xu Hướng
+        const cart = getCart();
+
+        let size = "S";
+        if (product.sizes && product.sizes.length > 0) {
+            size = product.sizes[0];
+        }
+
+        let existing = null;
+        for (let i = 0; i < cart.length; i++) {
+            if (cart[i].id === product.id && cart[i].size === size) {
+                existing = cart[i];
+                break;
+            }
+        }
+
+        if (existing) {
+            existing.quantity++;
+        } else {
+            cart.push({
+                id: product.id,
+                title: product.name,
+                price: finalPrice,
+                quantity: 1,
+                image: product.images[0],
+                size: size,
+                availableSizes: product.sizes,
+            });
+        }
+
+        saveCart(cart);
+        updateCartBadge();
+        showNotification("Đã thêm " + product.name + " vào giỏ hàng!");
+
+        const btn = this;
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Đã thêm';
+        btn.style.background = "#4CAF50";
+        setTimeout(function () {
+            btn.innerHTML = originalHTML;
+            btn.style.background = "";
+        }, 2000);
+    });
+
+    return card;
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const mobileToggle = document.getElementById("mobile-toggle");
+    const navMenu = document.getElementById("nav-menu");
+    const mobileActions = document.querySelector(".nav-mobile-actions");
+    const header = document.querySelector("header");
+
+    // Chặn click giỏ hàng nếu chưa đăng nhập
+    document.addEventListener("click", function(e) {
+        const cartBtn = e.target.closest(".btn-cart");
+        if (cartBtn) {
+            if (!requireLogin("⚠️ Vui lòng đăng nhập để xem giỏ hàng!", 1500)) {
+                e.preventDefault();
+            }
+        }
+    });
+
+    // Khởi tạo các trạng thái ban đầu
+    updateCartBadge();
+
+    // Menu mobile 
+    if (mobileToggle && navMenu) {
+        mobileToggle.addEventListener("click", function () {
+            navMenu.classList.toggle("active");
+            if (mobileActions) {
+                if (navMenu.classList.contains("active")) {
+                    mobileActions.style.display = "flex";
+                } else {
+                    mobileActions.style.display = "none";
+                }
+            }
+        });
+    }
+
+
+    // JS riêng cho trang chủ
+    const sections = document.querySelectorAll("section");
+    const navItems = document.querySelectorAll(".nav-item");
+    const shopBtn = document.querySelector(".btn-shop");
+
+    const isHomePage =
+        window.location.pathname === "/" ||
+        window.location.pathname.endsWith("index.html") ||
+        window.location.pathname === "" ||
+        window.location.pathname.endsWith("/");
+
+    if (shopBtn) {
+        shopBtn.addEventListener("click", function () {
+            window.location.href = "/pages/product-list/product-list.html";
+        });
+    }
+
+    if (isHomePage) {
+        // Xử lý active menu theo vị trí cuộn
+        window.addEventListener("scroll", function () {
+            if (sections.length > 0) {
+                let current = "";
+                for (let i = 0; i < sections.length; i++) {
+                    if (window.pageYOffset >= sections[i].offsetTop - 200) {
+                        current = sections[i].getAttribute("id");
+                    }
+                }
+                for (let i = 0; i < navItems.length; i++) {
+                    navItems[i].classList.remove("active");
+                    const href = navItems[i].getAttribute("href");
+                    if (current && href.includes(current)) {
+                        navItems[i].classList.add("active");
+                    }
+                    if (
+                        window.pageYOffset < 200 &&
+                        (href === "#" || href === "/index.html")
+                    ) {
+                        navItems[i].classList.add("active");
+                    }
+                }
             }
         });
 
-        // Sau khi render xong → khởi động tính năng kéo carousel
+        // Tải dữ liệu trang chủ
+        fetch("/assets/products.json")
+            .then(function (res) { return res.json(); })
+            .then(function (products) { renderProducts(products); })
+            .catch(function (err) { console.error("Lỗi trang chủ:", err); });
+    }
+
+    // Hiển thị sản phẩm cho trang chủ (helper)
+    function renderProducts(products) {
+        const hotGrid = document.getElementById("hot-grid");
+        const saleGrid = document.getElementById("sale-grid");
+        if (!hotGrid || !saleGrid) return;
+
+        for (let i = 0; i < products.length; i++) {
+            const product = products[i];
+            const status = getProductStatus(product);
+            const card = createCard(product);
+
+            if (status.hasSale) {
+                saleGrid.appendChild(card);
+            } else if (status.isHot) {
+                hotGrid.appendChild(card);
+            }
+        }
         initDrag();
     }
 
-    // ── Tải dữ liệu sản phẩm từ file JSON và render ────────────────────
-    fetch('/assets/products.json')
-        .then(function(res) {
-            return res.json();
-        })
-        .then(function(products) {
-            return renderProducts(products);
-        })
-        .catch(function(err) {
-            return console.error('Không thể tải products.json:', err);
-        });
-
-    // ── CAROUSEL DRAG (kéo ngang bằng chuột và cảm ứng) ───────────────
+    // Kéo ngang danh sách sản phẩm
     function initDrag() {
-        // Lấy tất cả grid có thuộc tính data-scrollable="true"
-        const grids = document.querySelectorAll('.grid[data-scrollable="true"]');
+        const grids = document.querySelectorAll(
+            '.grid[data-scrollable="true"]',
+        );
+        for (let g = 0; g < grids.length; g++) {
+            (function (grid) {
+                let isDown = false,
+                    startX,
+                    scrollLeft;
 
-        grids.forEach(function(grid) {
-            let isDown = false;       // Đang giữ chuột/chạm không
-            let startX, scrollLeft;  // Vị trí bắt đầu và scrollLeft ban đầu
+                // sự kiện chuột
+                grid.addEventListener("mousedown", function (e) {
+                    isDown = true;
+                    grid.classList.add("dragging");
+                    startX = e.pageX - grid.offsetLeft;
+                    scrollLeft = grid.scrollLeft;
+                });
 
-            // ── Mouse Events (máy tính) ────────────────────────────────
-            grid.addEventListener('mousedown', function(e) {
-                isDown = true;
-                grid.classList.add('dragging');
-                startX = e.pageX - grid.offsetLeft;
-                scrollLeft = grid.scrollLeft;
-            });
+                grid.addEventListener("mouseleave", function () {
+                    isDown = false;
+                    grid.classList.remove("dragging");
+                });
 
-            // Nhả chuột hoặc rời khỏi vùng → dừng kéo
-            grid.addEventListener('mouseleave', function() { isDown = false; grid.classList.remove('dragging'); });
-            grid.addEventListener('mouseup',    function() { isDown = false; grid.classList.remove('dragging'); });
+                grid.addEventListener("mouseup", function () {
+                    isDown = false;
+                    grid.classList.remove("dragging");
+                });
 
-            grid.addEventListener('mousemove', function(e) {
-                if (!isDown) {
-                    return;
-                }
-                e.preventDefault(); // Ngăn chọn text khi kéo
-                const x = e.pageX - grid.offsetLeft;
-                // Nhân 2 để kéo nhanh hơn (cảm giác mượt mà)
-                grid.scrollLeft = scrollLeft - (x - startX) * 2;
-            });
+                grid.addEventListener("mousemove", function (e) {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    grid.scrollLeft =
+                        scrollLeft - (e.pageX - grid.offsetLeft - startX) * 2;
+                });
 
-            // ── Touch Events (điện thoại/máy tính bảng) ───────────────
-            grid.addEventListener('touchstart', function(e) {
-                isDown = true;
-                startX = e.touches[0].pageX - grid.offsetLeft;
-                scrollLeft = grid.scrollLeft;
-            });
-            grid.addEventListener('touchend', function() { isDown = false; });
-            grid.addEventListener('touchmove', function(e) {
-                if (!isDown) {
-                    return;
-                }
-                const x = e.touches[0].pageX - grid.offsetLeft;
-                grid.scrollLeft = scrollLeft - (x - startX) * 2;
-            });
-        });
-    }
-
-    /**
-     * Cập nhật số lượng sản phẩm hiển thị trên icon giỏ hàng ở Header
-     * Chỉ hiển thị số lượng khi đã đăng nhập
-     */
-    function updateCartCount() {
-        const loggedIn = !!JSON.parse(localStorage.getItem('eb_session') || 'null');
-        // Tính tổng số lượng tất cả sản phẩm trong giỏ
-        let total = 0;
-        if (loggedIn) {
-            total = cart.reduce(function(sum, item) {
-                return sum + item.quantity;
-            }, 0);
+                // sự kiện cảm ứng
+                grid.addEventListener("touchstart", function (e) {
+                    isDown = true;
+                    startX = e.touches[0].pageX - grid.offsetLeft;
+                    scrollLeft = grid.scrollLeft;
+                });
+                grid.addEventListener("touchend", function () {
+                    isDown = false;
+                });
+                grid.addEventListener("touchmove", function (e) {
+                    if (!isDown) return;
+                    grid.scrollLeft =
+                        scrollLeft -
+                        (e.touches[0].pageX - grid.offsetLeft - startX) * 2;
+                });
+            })(grids[g]);
         }
-
-        // Cập nhật cả 2 span (desktop + mobile) để tránh bug duplicate ID
-        document.querySelectorAll('#cart-count, #cart-count-mobile').forEach(function(el) {
-            el.textContent = `(${total})`;
-        });
-    }
-
-    /**
-     * Hiển thị thông báo toast (popup nhỏ góc phải màn hình)
-     * @param {string} message - Nội dung thông báo
-     * @param {string} color   - Màu nền (mặc định xanh lá thành công)
-     */
-    function showNotification(message, color = '#4CAF50') {
-        // Xóa mọi notification đang hiển thị để tránh chồng chất
-        document.querySelectorAll('[data-notification]').forEach(function(n) {
-            n.remove();
-        });
-
-        const notification = document.createElement('div');
-        notification.setAttribute('data-notification', 'true');
-        notification.style.cssText = `
-            position: fixed; top: 90px; right: 20px;
-            background: ${color}; color: white;
-            padding: 16px 24px; border-radius: 10px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            z-index: 9999; font-weight: 600;
-            animation: slideInRight 0.5s ease-out;
-        `;
-        notification.textContent = message;
-        document.body.appendChild(notification);
-
-        // Sau 2 giây: chạy animation trượt ra và xóa khỏi DOM
-        setTimeout(function() {
-            notification.style.animation = 'slideOutRight 0.5s ease-out';
-            setTimeout(function() {
-                notification.remove();
-            }, 500);
-        }, 2000);
-    }
-
-    // ── Định nghĩa keyframes animation trượt phải cho notification toast
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideInRight {
-            from { transform: translateX(400px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideOutRight {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(400px); opacity: 0; }
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Ghi chú: Logic User Menu (avatar + dropdown) đã được chuyển
-    // sang components.js để chạy global trên tất cả các trang
-
-    // ── Nút giỏ hàng trong nav → hiện thông báo số lượng ──────────────
-    const cartBtn = document.querySelector('.btn-cart');
-    if (cartBtn) {
-        cartBtn.addEventListener('click', function() {
-            const total = cart.reduce(function(sum, item) {
-                return sum + item.quantity;
-            }, 0);
-            showNotification(`Giỏ hàng có ${total} sản phẩm`);
-        });
     }
 });

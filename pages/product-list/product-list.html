@@ -4,44 +4,39 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Mô tả trang cho SEO -->
     <meta name="description" content="DEUX - Thời trang nam nữ cao cấp hiện đại" />
     <title>DEUX | Sản Phẩm</title>
-    <!-- Favicon -->
     <link rel="icon" href="/assets/images/favicon.png" type="image/png">
-    <!-- CSS chung toàn dự án -->
     <link rel="stylesheet" href="/assets/style.css" />
-    <!-- CSS riêng cho trang danh sách sản phẩm (filter bar, grid, skeleton...) -->
+    <!-- CSS riêng cho trang danh sách sản phẩm -->
     <link rel="stylesheet" href="product-list.css" />
-    <!-- Font Awesome 6.5.1: bộ icon mới nhất -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <!-- Google Fonts: Poppins nhiều weight -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
 </head>
 
 <body>
 
-    <!-- Header được inject bởi components.js -->
+    <!--  header được chèn bởi components.js  -->
     <header></header>
 
-    <!-- ===== FILTER BAR: Thanh tìm kiếm và sắp xếp ===== -->
+    <!-- Thanh điều hướng phụ và tìm kiếm + sắp xếp -->
     <section class="pl-filter-bar">
         <div class="container pl-filter-bar-inner">
 
-            <!-- BREADCRUMB: Hiển thị bộ lọc đang áp dụng (VD: Tất cả > Nam > Áo)
-                 Được cập nhật động bởi hàm _updateBreadcrumb() trong product-list.js -->
+            <!-- Hiển thị bộ lọc đang áp dụng (VD: Tất cả > Áo)
+                 Được cập nhật động bởi hàm updateBreadcrumb() trong product-list.js -->
             <div class="pl-breadcrumb" id="plBreadcrumb">
-                <!-- Mặc định chỉ hiện "Tất cả sản phẩm", JS sẽ thêm node khi có lọc -->
+                <!-- Mặc định chỉ hiện "Tất cả sản phẩm", JS sẽ thêm khi có lọc -->
                 <span class="pl-breadcrumb-item pl-breadcrumb-item-home" id="plBreadcrumbHome">
                     <i class="fa-solid fa-house"></i> Tất cả sản phẩm
                 </span>
             </div>
 
-            <!-- CONTROLS: Thanh tìm kiếm + Dropdown sắp xếp -->
+            <!-- nút tìm kiếm + sắp xếp -->
             <div class="pl-controls">
 
-                <!-- Ô tìm kiếm realtime: sự kiện "input" gắn trong product-list.js -->
+                <!-- Ô tìm kiếm: sự kiện "input" gắn trong product-list.js -->
                 <div class="pl-search">
                     <i class="fa-solid fa-magnifying-glass pl-search-icon"></i>
                     <input type="text" id="plSearch" class="input-field pl-search-input"
@@ -60,24 +55,19 @@
         </div>
     </section>
 
-    <!-- ===== CATEGORY BAR: Thanh lọc theo danh mục (pills) =====
-         Nội dung được render hoàn toàn bởi _renderCategoryBar() trong product-list.js
-         sau khi tải xong products.json (để lấy danh sách category thực tế) -->
-    <div class="pl-cat-bar" id="plCatBar">
-        <!-- Không có nội dung tĩnh ở đây, tất cả do JS render -->
-    </div>
+    <!-- Thanh lọc theo danh mục được tạo bởi renderCategoryBar() trong product-list.js -->
+    <div class="pl-cat-bar" id="plCatBar"></div>
 
-    <!-- ===== PRODUCT GRID: Khu vực hiển thị các card sản phẩm ===== -->
+    <!-- Khu vực hiển thị các card sản phẩm -->
     <main class="product">
         <div class="container">
 
-            <!-- Dòng hiển thị số lượng kết quả (VD: "Tìm thấy 12 sản phẩm")
-                 Được cập nhật bởi hàm _render() trong product-list.js -->
+            <!-- Hiển thị số lượng kết quả: Được cập nhật bởi hàm renderList() trong product-list.js -->
             <p class="pl-result-count" id="plResultCount"></p>
 
             <!-- Grid chứa các card sản phẩm
-                 Skeleton loading: hiển thị placeholder trong lúc chờ fetch products.json
-                 Sau khi JS load xong → skeleton bị xóa và card thật được render vào -->
+                hiển thị placeholder trong lúc chờ JS load 
+                skeleton bị xóa và card thật được chèn vào -->
             <div class="pl-grid" id="productGrid">
                 <!-- 8 placeholder skeleton để giữ layout trong khi tải dữ liệu -->
                 <div class="pl-skeleton"></div>
@@ -92,16 +82,15 @@
         </div>
     </main>
 
-    <!-- Footer được inject bởi components.js -->
+    <!--  footer được chèn bởi components.js)  -->
     <footer></footer>
 
-    <!-- ===== SCRIPTS =====
-         Thứ tự quan trọng:
-         1. components.js: render header/footer trước
-         2. main.js: logic chung (có thể cần cho một số helper)
-         3. product-list.js: logic riêng trang này (render grid, filter, search) -->
-    <script src="/assets/components.js"></script>
+    <!--                   Javascript
+        1. main.js: logic chung
+        2. components.js chèn header/footer
+        3. product-list.js: render grid, filter, search -->
     <script src="/assets/main.js"></script>
+    <script src="/assets/components.js"></script>
     <script src="product-list.js"></script>
 </body>
 

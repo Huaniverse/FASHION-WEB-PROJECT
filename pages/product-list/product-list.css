@@ -1,19 +1,16 @@
-/* ============================================================
-   product-list.css  —  Chỉ chứa styles RIÊNG trang sản phẩm.
-   Tất cả: reset, biến màu, .card, .btn-add, header, footer
-   đã kế thừa từ style.css. KHÔNG khai báo lại.
-   ============================================================ */
+/* reset, biến màu, .card, .btn-add, header, footer kế thừa từ style.css */
 
 /* ── body: override padding-top cho header fixed 70px ── */
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  padding-top: 70px;
+
 }
 
-.product { flex: 1; }
+.product {
+  flex: 1;
+}
 
-/* ===== THANH BỘ LỌC (FILTER BAR) ===== */
+/* Bộ lọc sản phẩm */
 .pl-filter-bar {
   background: white;
   backdrop-filter: blur(20px);
@@ -21,6 +18,7 @@ body {
   padding: 12px 0;
 }
 
+/* Khung chứa bộ lọc */
 .pl-filter-bar-inner {
   display: flex;
   align-items: center;
@@ -29,7 +27,7 @@ body {
   gap: 10px;
 }
 
-/* Breadcrumb */
+/* điều hướng phụ (cấu trúc trang web) */
 .pl-breadcrumb {
   display: flex;
   align-items: center;
@@ -42,6 +40,7 @@ body {
   color: #888;
 }
 
+/* hình ngôi nhà, chữ tất cả sản phẩm */
 .pl-breadcrumb-item-home {
   color: var(--primary-blue);
   cursor: pointer;
@@ -52,6 +51,7 @@ body {
   text-decoration: underline;
 }
 
+/* mũi tên ngăn cách */
 .pl-breadcrumb-sep {
   color: #ccc;
   font-size: 10px;
@@ -62,7 +62,7 @@ body {
   font-weight: 600;
 }
 
-/* Search + Sort */
+/* khung chứa search & sort */
 .pl-controls {
   display: flex;
   align-items: center;
@@ -113,9 +113,11 @@ body {
   transition: border-color 0.3s;
 }
 
-.pl-sort:focus { border-color: var(--primary-blue); }
+.pl-sort:focus {
+  border-color: var(--primary-blue);
+}
 
-/* ===== THANH DANH MỤC (CATEGORY BAR) ===== */
+/* thanh danh mục */
 .pl-cat-bar {
   background: white;
   border-bottom: 1px solid rgba(0, 86, 179, 0.08);
@@ -135,6 +137,7 @@ body {
   box-sizing: border-box;
 }
 
+/* nút trong danh mục */
 .pl-cat-pill {
   display: inline-flex;
   align-items: center;
@@ -154,6 +157,7 @@ body {
   flex-shrink: 0;
 }
 
+/* icon trong nút danh mục */
 .pl-cat-pill i {
   font-size: 12px;
   opacity: 0.7;
@@ -173,7 +177,9 @@ body {
   box-shadow: 0 4px 14px rgba(0, 86, 179, 0.3);
 }
 
-.pl-cat-pill-active i { opacity: 1; }
+.pl-cat-pill-active i {
+  opacity: 1;
+}
 
 .pl-cat-pill-active:hover {
   background: var(--accent-blue);
@@ -182,7 +188,7 @@ body {
   transform: translateY(-1px);
 }
 
-/* Divider dọc sau pill "Tất cả" */
+/* Đường dọc ngăn giữa tất cả và các danh mục */
 .pl-cat-divider {
   width: 1px;
   height: 20px;
@@ -191,14 +197,14 @@ body {
   margin: 0 4px;
 }
 
-/* ===== RESULT COUNT ===== -->
+/* hiển thị số lượng sản phẩm */
 .pl-result-count {
   font-size: 13px;
   color: #888;
   margin: 16px 0 8px;
 }
 
-/* ===== LƯỚI SẢN PHẨM (PRODUCT GRID) ===== */
+/* lưới sản phẩm */
 .pl-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -206,13 +212,13 @@ body {
   padding: 8px 0 40px;
 }
 
-/* .card trong pl-grid: bỏ flex: 0 0 250px (dùng grid width) */
+/* .card trong pl-grid bỏ flex: 0 0 250px của style.css */
 .pl-grid .card {
   flex: none;
   width: 100%;
 }
 
-/* ===== HIỆU ỨNG TẢI TRANG (SKELETON LOADING) ===== */
+/* hiệu ứng khi load trang */
 .pl-skeleton {
   height: 360px;
   border-radius: 15px;
@@ -222,12 +228,18 @@ body {
 }
 
 @keyframes pl-shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
-/* ===== TRẠNG THÁI KHÔNG CÓ SẢN PHẨM (EMPTY STATE) ===== */
+/* hiển thị khi không có sản phẩm */
 .pl-empty {
+  height: 100vh;
   grid-column: 1 / -1;
   text-align: center;
   padding: 60px 20px;
@@ -245,27 +257,60 @@ body {
   font-size: 16px;
 }
 
-/* ===== THIẾT KẾ ĐÁP ỨNG (RESPONSIVE) ===== */
+/* reponsive */
 @media (max-width: 1024px) {
-  .pl-grid { grid-template-columns: repeat(3, 1fr); }
+  .pl-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-  .pl-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .pl-filter-bar { top: 70px; }
-  .pl-search-input { width: 150px; }
-  .pl-search-input:focus { width: 180px; }
+  .pl-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .pl-filter-bar {
+    top: 70px;
+  }
+
+  .pl-search-input {
+    width: 150px;
+  }
+
+  .pl-search-input:focus {
+    width: 180px;
+  }
 }
 
 @media (max-width: 480px) {
-  .pl-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .pl-filter-bar-inner { flex-direction: column; align-items: flex-start; }
-  .pl-controls { width: 100%; justify-content: space-between; }
-  .pl-search { flex: 1; }
+  .pl-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .pl-filter-bar-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pl-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .pl-search {
+    flex: 1;
+  }
+
   .pl-search-input,
-  .pl-search-input:focus { width: 100%; }
+  .pl-search-input:focus {
+    width: 100%;
+  }
 }
 
 @media (max-width: 350px) {
-  .pl-grid { grid-template-columns: 1fr; }
+  .pl-grid {
+    grid-template-columns: 1fr;
+  }
 }

@@ -10,27 +10,145 @@
             "/assets/images/ao-khoac/duStreetwear/duStreetwear3.JPG"
         ],
         "description": "Họa tiết chữ ký in nổi tinh xảo nghệ thuật ở mặt sau tạo điểm nhấn và thu hút ánh nhìn",
-        "sizes": ["M", "L", "XL"],
-        "sale": "20",
+        "sizes": [
+            "M",
+            "L",
+            "XL"
+        ],
+        "sale": "",
         "hot": true
     },
     {
         "id": 2,
-        "name": "Áo Sơ Mi Premium",
+        "name": "Áo Sơ Mi Boxy",
         "category": "Áo",
-        "price": 1800000,
+        "price": 450000,
         "images": [
-            "/assets/images/ao-somi/somi1.JPG",
-            "/assets/images/ao-somi/somi2.JPG",
-            "/assets/images/ao-somi/somi3.JPG"
+            "/assets/images/ao/ao-somi-boxy/ao-somi-boxy1.JPG",
+            "/assets/images/ao/ao-somi-boxy/ao-somi-boxy2.JPG",
+            "/assets/images/ao/ao-somi-boxy/ao-somi-boxy3.JPG"
         ],
-        "description": "Áo sơ mi premium chất liệu cotton cao cấp, thiết kế thanh lịch, dễ phối đồ.",
-        "sizes": ["S", "M", "L", "XL", "XXL"],
+        "description": "Chiếc áo sơ mi Boxy in nhiệt là lựa chọn hoàn hảo cho những ai yêu thích phong cách basic, unisex, tối giản nhưng vẫn nối bật",
+        "sizes": [
+            "M",
+            "L",
+            "XL"
+        ],
         "sale": "",
         "hot": true
     },
     {
         "id": 3,
+        "name": "Áo Sọc Thể Thao",
+        "category": "Áo",
+        "price": 460000,
+        "images": [
+            "/assets/images/ao/ao-soc-the-thao/ao-soc-the-thao1.JPG",
+            "/assets/images/ao/ao-soc-the-thao/ao-soc-the-thao2.JPG"
+        ],
+        "description": "Áo Sọc Thể Thao Unisex LVC Form Rộng – thiết kế mang hơi hướng thể thao hiện đại, năng động và trẻ trung",
+        "sizes": [
+            "M",
+            "L",
+            "XL"
+        ],
+        "sale": "",
+        "hot": false
+    },
+    {
+        "id": 4,
+        "name": "Áo Sweater Nỉ Bông",
+        "category": "Áo",
+        "price": 500000,
+        "images": [
+            "/assets/images/ao/sweeter-ni-bong/sweeter-ni-bong1.JPG",
+            "/assets/images/ao/sweeter-ni-bong/sweeter-ni-bong2.JPG",
+            "/assets/images/ao/sweeter-ni-bong/sweeter-ni-bong3.JPG"
+        ],
+        "description": "thiết kế dành cho những ai yêu thích phong cách tối giản nhưng vẫn muốn giữ nét cá tính riêng",
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "sale": "",
+        "hot": false
+    },
+    {
+        "id": 5,
+        "name": "Quần Jeans Wash",
+        "category": "Quần",
+        "price": 1000000,
+        "images": [
+            "/assets/images/quan/quan-jeans-wash/quan-jeans-wash1.JPG",
+            "/assets/images/quan/quan-jeans-wash/quan-jeans-wash2.JPG",
+            "/assets/images/quan/quan-jeans-wash/quan-jeans-wash3.JPG"
+        ],
+        "description": "là lựa chọn hoàn hảo cho những ai yêu thích sự phá cách, nổi bật với đường nét cơ thể được ôm trọn bởi thiết kế chiết gọn eo, nhưng bo chun phía sau lưng tạo cảm giác thoải mái khi mặc",
+        "sizes": [
+            "1",
+            "2",
+            "3"
+        ],
+        "sale": "",
+        "hot": true
+    },
+    {
+        "id": 6,
+        "name": "Khăn Lụa Vuông 97",
+        "category": "Phụ kiện",
+        "price": 100000,
+        "images": [
+            "/assets/images/phu-kien/khan-lua-vuong/khan-lua-vuong1.JPG",
+            "/assets/images/phu-kien/khan-lua-vuong/khan-lua-vuong2.JPG",
+            "/assets/images/phu-kien/khan-lua-vuong/khan-lua-vuong3.JPG",
+            "/assets/images/phu-kien/khan-lua-vuong/khan-lua-vuong4.JPG"
+        ],
+        "description": "Phụ kiện tinh tế giúp nâng tầm outfit hằng ngày",
+        "sizes": [
+            "65x65"
+        ],
+        "sale": "",
+        "hot": true
+    },
+    {
+        "id": 8,
+        "name": "Fireflies Light",
+        "category": "Phụ kiện",
+        "price": 997000,
+        "images": [
+            "/assets/images/phu-kien/fireflies-light/fireflies-light.JPG"
+        ],
+        "description": "Light Stick cực cool",
+        "sizes": [
+            "Ver 1"
+        ],
+        "sale": "",
+        "hot": true
+    },
+    {
+        "id": 12,
+        "name": "Áo Sơ Mi Premium",
+        "category": "Áo",
+        "price": 1800000,
+        "images": [
+            "/assets/images/ao/ao-somi-premium/ao-somi-premium1.jpg",
+            "/assets/images/ao/ao-somi-premium/ao-somi-premium2.jpg",
+            "/assets/images/ao/ao-somi-premium/ao-somi-premium3.jpg"
+        ],
+        "description": "Áo sơ mi premium chất liệu cotton cao cấp, thiết kế thanh lịch, dễ phối đồ.",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
+        "sale": "",
+        "hot": false
+    },
+    {
+        "id": 13,
         "name": "Quần Jeans Slim",
         "category": "Quần",
         "price": 1200000,
@@ -38,12 +156,19 @@
             "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1000&auto=format&fit=crop"
         ],
         "description": "Quần jeans dáng slim fit ôm dáng, chất denim co giãn nhẹ, thoải mái khi vận động.",
-        "sizes": ["28", "29", "30", "31", "32", "34"],
+        "sizes": [
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "34"
+        ],
         "sale": "",
-        "hot": true
+        "hot": false
     },
     {
-        "id": 4,
+        "id": 14,
         "name": "Áo Khoác Da",
         "category": "Áo khoác",
         "price": 3200000,
@@ -51,12 +176,17 @@
             "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=1000&auto=format&fit=crop"
         ],
         "description": "Áo khoác da PU cao cấp, kiểu dáng hiện đại, giữ ấm tốt, phù hợp mùa thu đông.",
-        "sizes": ["S", "M", "L", "XL"],
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
         "sale": "",
-        "hot": true
+        "hot": false
     },
     {
-        "id": 5,
+        "id": 15,
         "name": "Suit Xanh Navy",
         "category": "Suit",
         "price": 4000000,
@@ -64,12 +194,18 @@
             "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?q=80&w=1000&auto=format&fit=crop"
         ],
         "description": "Bộ suit xanh navy sang trọng, phù hợp công sở và các buổi sự kiện trang trọng.",
-        "sizes": ["S", "M", "L", "XL", "XXL"],
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
         "sale": 30,
         "hot": false
     },
     {
-        "id": 6,
+        "id": 16,
         "name": "Đầm Dự Tiệc",
         "category": "Váy",
         "price": 3500000,
@@ -77,12 +213,17 @@
             "https://images.unsplash.com/photo-1566174053879-31528523f8ae?q=80&w=1000&auto=format&fit=crop"
         ],
         "description": "Đầm dự tiệc thiết kế tinh tế, ôm dáng, tôn lên vẻ đẹp thanh lịch và quý phái.",
-        "sizes": ["XS", "S", "M", "L"],
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L"
+        ],
         "sale": 36,
         "hot": false
     },
     {
-        "id": 7,
+        "id": 17,
         "name": "Áo Sweater",
         "category": "Áo",
         "price": 2000000,
@@ -92,12 +233,17 @@
             "/assets/images/ao-khoac/sweater/sweater3.JPG"
         ],
         "description": "Áo sweater len mềm mịn, giữ ấm tốt, thiết kế đơn giản nhưng thời thượng.",
-        "sizes": ["S", "M", "L", "XL"],
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
         "sale": 40,
         "hot": false
     },
     {
-        "id": 8,
+        "id": 18,
         "name": "Giày High Heels",
         "category": "Giày",
         "price": 2800000,
@@ -105,12 +251,19 @@
             "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1000&auto=format&fit=crop"
         ],
         "description": "Giày cao gót thiết kế tinh tế, đế vững chắc, phù hợp với nhiều phong cách trang phục.",
-        "sizes": ["35", "36", "37", "38", "39", "40"],
+        "sizes": [
+            "35",
+            "36",
+            "37",
+            "38",
+            "39",
+            "40"
+        ],
         "sale": 35,
         "hot": false
     },
     {
-        "id": 9,
+        "id": 19,
         "name": "Váy Hoa Nhí Vintage",
         "category": "Váy",
         "price": 1350000,
@@ -118,12 +271,17 @@
             "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=1000&auto=format&fit=crop"
         ],
         "description": "Váy hoa nhí dáng xòe nhẹ nhàng, phong cách vintage Pháp, phù hợp dạo phố.",
-        "sizes": ["XS", "S", "M", "L"],
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L"
+        ],
         "sale": 15,
         "hot": false
     },
     {
-        "id": 10,
+        "id": 20,
         "name": "Áo Thun Oversize",
         "category": "Áo",
         "price": 550000,
@@ -131,12 +289,18 @@
             "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1000&auto=format&fit=crop"
         ],
         "description": "Áo thun 100% cotton định lượng dày dặn, form oversize hiện đại, thấm hút mồ hôi.",
-        "sizes": ["S", "M", "L", "XL", "XXL"],
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
         "sale": "",
-        "hot": true
+        "hot": false
     },
     {
-        "id": 11,
+        "id": 21,
         "name": "Quần Tây Âu Slimfit",
         "category": "Quần",
         "price": 950000,
@@ -144,12 +308,18 @@
             "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=1000&auto=format&fit=crop"
         ],
         "description": "Quần tây chất liệu vải chéo cao cấp, không nhăn, đứng dáng, phù hợp môi trường công sở.",
-        "sizes": ["29", "30", "31", "32", "33"],
-        "sale": 10,
+        "sizes": [
+            "29",
+            "30",
+            "31",
+            "32",
+            "33"
+        ],
+        "sale": "",
         "hot": false
     },
     {
-        "id": 12,
+        "id": 22,
         "name": "Áo Khoác Bomber",
         "category": "Áo khoác",
         "price": 1850000,
@@ -157,12 +327,16 @@
             "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=1000&auto=format&fit=crop"
         ],
         "description": "Áo khoác bomber gió 2 lớp chống nước nhẹ, thiết kế năng động trẻ trung.",
-        "sizes": ["M", "L", "XL"],
+        "sizes": [
+            "M",
+            "L",
+            "XL"
+        ],
         "sale": "",
-        "hot": true
+        "hot": false
     },
     {
-        "id": 13,
+        "id": 23,
         "name": "Suit Xám Charcoal",
         "category": "Suit",
         "price": 4500000,
@@ -171,12 +345,17 @@
             "/assets/images/suit/suitxam2.JPG"
         ],
         "description": "Bộ suit màu xám than lịch lãm, cắt may theo form dáng hiện đại, tôn dáng người mặc.",
-        "sizes": ["S", "M", "L", "XL"],
-        "sale": 20,
-        "hot": true
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "sale": "",
+        "hot": false
     },
     {
-        "id": 14,
+        "id": 24,
         "name": "Giày Loafers Da Bóng",
         "category": "Giày",
         "price": 3200000,
@@ -184,12 +363,18 @@
             "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?q=80&w=1000&auto=format&fit=crop"
         ],
         "description": "Giày Loafers không dây tiện lợi, chất liệu da bò bóng bẩy, phù hợp phối với Suit hoặc Quần tây.",
-        "sizes": ["39", "40", "41", "42", "43"],
+        "sizes": [
+            "39",
+            "40",
+            "41",
+            "42",
+            "43"
+        ],
         "sale": "",
         "hot": false
     },
     {
-        "id": 15,
+        "id": 25,
         "name": "Áo Sơ Mi Họa Tiết",
         "category": "Áo",
         "price": 1100000,
@@ -197,12 +382,17 @@
             "https://images.unsplash.com/photo-1589310243389-96a5483213a8?q=80&w=1000&auto=format&fit=crop"
         ],
         "description": "Áo sơ mi lụa họa tiết độc đáo, chất liệu mát mẻ cho những chuyến du lịch hè.",
-        "sizes": ["S", "M", "L", "XL"],
-        "sale": 30,
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "sale": "",
         "hot": false
     },
     {
-        "id": 16,
+        "id": 26,
         "name": "Quần Short Kaki",
         "category": "Quần",
         "price": 450000,
@@ -210,12 +400,17 @@
             "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?q=80&w=1000&auto=format&fit=crop"
         ],
         "description": "Quần short kaki dày dặn, màu sắc đa dạng, dễ dàng phối cùng áo thun hoặc polo.",
-        "sizes": ["28", "30", "32", "34"],
+        "sizes": [
+            "28",
+            "30",
+            "32",
+            "34"
+        ],
         "sale": "",
         "hot": false
     },
     {
-        "id": 17,
+        "id": 27,
         "name": "Váy trễ vai chấm bi",
         "category": "Váy",
         "price": 450000,
@@ -227,12 +422,18 @@
             "/assets/images/vay/VayTreVaiChamBi/vaytrevaichambi5.jpg"
         ],
         "description": "Váy trễ vai họa tiết chấm bi quyến rũ, kiểu dáng nữ tính, phù hợp cho những buổi dạo phố hoặc hẹn hò.",
-        "sizes": ["S", "M", "L", "XL", "XXL"],
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
         "sale": "",
         "hot": false
     },
     {
-        "id": 18,
+        "id": 28,
         "name": "Giày tây da nam Clarks",
         "category": "Giày",
         "price": 1800000,
@@ -241,12 +442,18 @@
             "/assets/images/giay/clarks2.jpg"
         ],
         "description": "Giày tây nam thời thượng, lịch lãm, phù hợp cho môi trường làm việc chuyên nghiệp",
-        "sizes": ["S", "M", "L", "XL", "XXL"],
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
         "sale": "",
-        "hot": true
+        "hot": false
     },
     {
-        "id": 19,
+        "id": 29,
         "name": "Suit nam cổ điển",
         "category": "Suit",
         "price": 2100000,
@@ -255,8 +462,14 @@
             "/assets/images/suit/suitclassic2.jpg"
         ],
         "description": "Bộ vest nam kiểu dáng cổ điển, 2 nút cài, áo khoác tuxedo và blazer, thích hợp cho đám cưới, tiệc công sở, dạ hội.",
-        "sizes": ["S", "M", "L", "XL", "XXL"],
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
         "sale": "",
-        "hot": true
+        "hot": false
     }
 ]

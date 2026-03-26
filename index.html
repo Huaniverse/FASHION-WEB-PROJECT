@@ -4,48 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Tiêu đề tab trình duyệt -->
     <title>DEUX | Luxury Style</title>
-    <!-- Favicon hiển thị trên tab -->
     <link rel="icon" href="/assets/images/favicon.png" type="image/png">
-    <!-- CSS chính của toàn bộ dự án -->
     <link rel="stylesheet" href="assets/style.css">
-    <!-- Google Fonts: Playfair Display (tiêu đề sang trọng) + Poppins (nội dung) -->
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
         rel="stylesheet">
-    <!-- Font Awesome: bộ icon dùng khắp trang -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- ===== HEADER (được inject bởi components.js) ===== -->
-    <!-- Phần tử trống, components.js sẽ render navbar vào đây -->
+    <!--  header được chèn bởi components.js  -->
     <header></header>
 
-    <!-- ===== HERO SECTION: Banner giới thiệu trang chủ ===== -->
+    <!--  hero section: Banner giới thiệu trang chủ  -->
     <section class="hero">
         <div class="hero-content">
-            <!-- Tiêu đề lớn với từ nhấn mạnh có màu khác -->
+            <!-- Tiêu đề chính -->
             <h1>Sắc Xanh Của <br><span>Sự Tinh Tế</span></h1>
-            <!-- Nút kêu gọi hành động: dẫn đến trang danh sách sản phẩm -->
+            <!-- Nút dẫn đến trang danh sách sản phẩm -->
             <button class="btn btn-primary btn-round btn-shop">Khám phá ngay</button>
         </div>
     </section>
 
-    <!-- ===== SECTION SẢN PHẨM XU HƯỚNG (HOT) ===== -->
+    <!--  section sản phẩm hot  -->
     <!-- id="hot-section" dùng cho scroll spy trong main.js -->
     <section class="collection" id="hot-section">
         <div class="container">
             <h2 class="section-title">Xu Hướng <span>Mới Nhất</span></h2>
-            <!-- Grid hiển thị card sản phẩm, được render từ products.json qua main.js -->
-            <!-- data-scrollable="true": kích hoạt tính năng kéo ngang (drag carousel) -->
+            <!-- Grid hiển thị card sản phẩm render từ products.json qua main.js -->
+            <!-- data-scrollable kích hoạt tính năng kéo ngang -->
             <div class="grid" id="hot-grid" data-scrollable="true"></div>
         </div>
     </section>
 
-    <!-- ===== SECTION SẢN PHẨM GIẢM GIÁ (SALE) ===== -->
+    <!--  section sản phẩm sale  -->
     <!-- class="sale-bg": áp dụng nền màu khác để phân biệt với section trên -->
     <section class="collection sale-bg" id="sale-section">
         <div class="container">
@@ -55,14 +49,14 @@
         </div>
     </section>
 
-    <!-- ===== FOOTER (được inject bởi components.js) ===== -->
+    <!--  footer được chèn bởi components.js)  -->
     <footer></footer>
 
-    <!-- ===== SCRIPTS ===== -->
-    <!-- components.js: inject header, footer và xử lý user menu toàn cục -->
-    <script src="/assets/components.js"></script>
+    <!--  JavaScript  -->
     <!-- main.js: logic trang chủ (carousel, render sản phẩm, thêm giỏ hàng) -->
     <script src="/assets/main.js"></script>
+    <!-- components.js: inject header, footer và xử lý user menu -->
+    <script src="/assets/components.js"></script>
 </body>
 
 </html>

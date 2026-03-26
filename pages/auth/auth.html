@@ -6,38 +6,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Tiêu đề trang tài khoản -->
     <title>DEUX | Tài Khoản</title>
-    <!-- Favicon -->
     <link rel="icon" href="/assets/images/favicon.png" type="image/png">
-    <!-- CSS chung toàn dự án -->
     <link rel="stylesheet" href="/assets/style.css">
-    <!-- CSS riêng cho trang auth (form đăng nhập/đăng ký) -->
+    <!-- CSS riêng cho trang auth-->
     <link rel="stylesheet" href="auth.css">
-    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
         rel="stylesheet">
-    <!-- Font Awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- Header được inject bởi components.js -->
+    <!--  header được chèn bởi components.js  -->
     <header></header>
 
-    <!-- ===== VÙNG CHỨA TOÀN BỘ FORM AUTH =====
-         auth-wrapper chứa 3 section: login, register, forgot
-         Chỉ 1 section có class "active" được hiển thị tại một thời điểm
-         Hàm showSection() trong script cuối trang xử lý việc chuyển đổi -->
+    <!-- auth-wrapper chứa 3 section: login, register, forgot -->
     <main class="page-wrapper auth-wrapper" id="auth-wrapper">
 
-        <!-- ==========================================
-             SECTION 1: ĐĂNG NHẬP
-             Mặc định có class "active" → hiển thị trước
-             ========================================== -->
-        <div class="auth-container active" id="login-section">
+        <!-- section 1: Đăng nhập có class "active" để hiển thị trước -->
+        <section class="auth-container active" id="login-section">
             <div class="auth-header">
                 <h2 class="auth-title">TÀI KHOẢN</h2>
                 <p class="subtitle">Chào mừng bạn đã đến với DEUX</p>
@@ -49,13 +38,13 @@
                 <!-- Input Email -->
                 <div class="input-group">
                     <label for="login-email">Email của bạn</label>
-                    <input type="email" id="email" class="input-field" placeholder="nguyenvana@email.com" required>
+                    <input type="email" id="login-email" class="input-field" placeholder="nguyenvana@email.com" required>
                 </div>
 
                 <!-- Input Mật khẩu -->
                 <div class="input-group">
                     <label for="login-password">Mật khẩu</label>
-                    <input type="password" id="password" class="input-field" placeholder="••••••••" required>
+                    <input type="password" id="login-password" class="input-field" placeholder="••••••••" required>
                 </div>
 
                 <!-- Tùy chọn: Ghi nhớ đăng nhập + link Quên mật khẩu -->
@@ -63,7 +52,8 @@
                     <label class="remember-me">
                         <input type="checkbox"> Ghi nhớ đăng nhập
                     </label>
-                    <!-- Chuyển sang section "forgot" khi click -->
+                    <!-- javascript:void(0) dùng làm "link giả" để ngăn trang tải lại khi click, 
+                         hành động thực sự được xử lý bởi hàm showSection() trong onclick -->
                     <a href="javascript:void(0)" onclick="showSection('forgot')" class="forgot-pass">Quên mật khẩu?</a>
                 </div>
 
@@ -76,169 +66,135 @@
             <!-- Footer form: link dẫn sang form Đăng ký -->
             <div class="auth-card-footer">
                 <p>Bạn chưa có tài khoản?</p>
+                <!-- javascript:void(0) giữ giao diện link nhưng không chuyển trang -->
                 <a href="javascript:void(0)" onclick="showSection('register')" class="link-auth">ĐĂNG KÝ NGAY</a>
             </div>
-        </div>
+        </section>
 
         <!-- ==========================================
              SECTION 2: ĐĂNG KÝ
              Không có class "active" → ẩn mặc định
              ========================================== -->
-        <div class="auth-container" id="register-section">
-            <div class="auth-header">
-                <h2 class="auth-title">TÀI KHOẢN</h2>
-                <p class="subtitle">Chào mừng bạn đã đến với DEUX</p>
-            </div>
-
-            <!-- Form đăng ký, auth.js lắng nghe submit -->
-            <form class="register-form">
-                <!-- Layout 2 cột cho các field thông tin cá nhân -->
-                <div class="form-grid">
-
-                    <!-- Họ tên: bắt buộc (có dấu *) -->
-                    <div class="input-group">
-                        <label for="fullname">Họ Tên<span class="mausao">*</span></label>
-                        <input type="text" id="fullname" class="input-field" placeholder="Nguyen Van A" required>
-                    </div>
-
-                    <!-- Email: bắt buộc -->
-                    <div class="input-group">
-                        <label for="email">Email<span class="mausao">*</span></label>
-                        <input type="email" id="email" class="input-field" placeholder="nguyenvana@email.com" required>
-                    </div>
-
-                    <!-- Số điện thoại: bắt buộc, validate định dạng VN -->
-                    <div class="input-group">
-                        <label for="phone">Số điện thoại<span class="mausao">*</span></label>
-                        <input type="tel" id="phone" class="input-field" placeholder="0123456789" required>
-                    </div>
-
-                    <!-- Địa chỉ: bắt buộc, dùng để tự điền form giao hàng -->
-                    <div class="input-group">
-                        <label for="address">Địa chỉ<span class="mausao">*</span></label>
-                        <input type="text" id="address" class="input-field" placeholder="Quan 1, Tp.HCM" required>
-                    </div>
-
-                    <!-- Mật khẩu: tối thiểu 6 ký tự -->
-                    <div class="input-group">
-                        <label for="password">Mật Khẩu<span class="mausao">*</span></label>
-                        <input type="password" id="password" class="input-field" placeholder="••••••••" required>
-                    </div>
-
-                    <!-- Xác nhận mật khẩu: phải trùng với ô trên -->
-                    <div class="input-group">
-                        <label for="confirm-password">Nhập Lại Mật Khẩu<span class="mausao">*</span></label>
-                        <input type="password" id="confirm-password" class="input-field" placeholder="••••••••" required>
-                    </div>
+            <section class="auth-container" id="register-section">
+                <div class="auth-header">
+                    <h2 class="auth-title">TÀI KHOẢN</h2>
+                    <p class="subtitle">Chào mừng bạn đã đến với DEUX</p>
                 </div>
 
-                <!-- Nhóm checkbox chọn phương thức liên hệ ưa thích -->
-                <div class="contact-to-you">
-                    <h3 class="contact-title">Liên hệ</h3>
-                    <p class="contact-subtitle">Chúng tôi có thể liên hệ với bạn qua hình thức</p>
-                    <div class="checkbox-group">
-                        <label>
-                            <input type="checkbox" name="contact" value="call"> Gọi điện
-                        </label>
-                        <label>
-                            <input type="checkbox" name="contact" value="zalo"> Zalo
-                        </label>
-                        <label>
-                            <input type="checkbox" name="contact" value="email"> Email
-                        </label>
+                <!-- Form đăng ký, auth.js lắng nghe submit -->
+                <form class="register-form">
+                    <!-- Layout 2 cột cho các field thông tin cá nhân -->
+                    <div class="form-grid">
+
+                        <!-- Họ tên: bắt buộc (có dấu *) -->
+                        <div class="input-group">
+                            <label for="reg-fullname">Họ Tên<span class="mausao">*</span></label>
+                            <input type="text" id="reg-fullname" class="input-field" placeholder="Nguyen Van A" required>
+                        </div>
+
+                        <!-- Email: bắt buộc -->
+                        <div class="input-group">
+                            <label for="reg-email">Email<span class="mausao">*</span></label>
+                            <input type="email" id="reg-email" class="input-field" placeholder="nguyenvana@email.com"
+                                required>
+                        </div>
+
+                        <!-- Số điện thoại: bắt buộc, validate định dạng VN -->
+                        <div class="input-group">
+                            <label for="reg-phone">Số điện thoại<span class="mausao">*</span></label>
+                            <input type="tel" id="reg-phone" class="input-field" placeholder="0123456789" required>
+                        </div>
+
+                        <!-- Địa chỉ: bắt buộc, dùng để tự điền form giao hàng -->
+                        <div class="input-group">
+                            <label for="reg-address">Địa chỉ<span class="mausao">*</span></label>
+                            <input type="text" id="reg-address" class="input-field" placeholder="Quan 1, Tp.HCM" required>
+                        </div>
+
+                        <!-- Mật khẩu: tối thiểu 6 ký tự -->
+                        <div class="input-group">
+                            <label for="reg-password">Mật Khẩu<span class="mausao">*</span></label>
+                            <input type="password" id="reg-password" class="input-field" placeholder="••••••••" required>
+                        </div>
+
+                        <!-- Xác nhận mật khẩu: phải trùng với ô trên -->
+                        <div class="input-group">
+                            <label for="reg-confirm">Nhập Lại Mật Khẩu<span class="mausao">*</span></label>
+                            <input type="password" id="reg-confirm" class="input-field" placeholder="••••••••"
+                                required>
+                        </div>
                     </div>
+
+                    <!-- Nhóm checkbox chọn phương thức liên hệ ưa thích -->
+                    <div class="contact-to-you">
+                        <h3 class="contact-title">Liên hệ</h3>
+                        <p class="contact-subtitle">Chúng tôi có thể liên hệ với bạn qua hình thức</p>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" name="contact" value="call"> Gọi điện
+                            </label>
+                            <label>
+                                <input type="checkbox" name="contact" value="zalo"> Zalo
+                            </label>
+                            <label>
+                                <input type="checkbox" name="contact" value="email"> Email
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Vùng hiển thị thông báo lỗi/thành công khi đăng ký -->
+                    <div id="register-msg"></div>
+
+                    <button type="submit" class="btn btn-primary btn-round btn-auth-submit">Đăng Ký</button>
+                </form>
+
+                <!-- Footer form: link dẫn về form Đăng nhập -->
+                <div class="auth-card-footer">
+                    <p>Bạn đã có tài khoản?</p>
+                    <!-- Tương tự, javascript:void(0) giúp giữ trải nghiệm link mà không làm phiền trình duyệt -->
+                    <a href="javascript:void(0)" onclick="showSection('login')" class="link-auth">ĐĂNG NHẬP TẠI ĐÂY</a>
                 </div>
+            </section>
 
-                <!-- Vùng hiển thị thông báo lỗi/thành công khi đăng ký -->
-                <div id="register-msg"></div>
-
-                <button type="submit" class="btn btn-primary btn-round btn-auth-submit">Đăng Ký</button>
-            </form>
-
-            <!-- Footer form: link dẫn về form Đăng nhập -->
-            <div class="auth-card-footer">
-                <p>Bạn đã có tài khoản?</p>
-                <a href="javascript:void(0)" onclick="showSection('login')" class="link-auth">ĐĂNG NHẬP TẠI ĐÂY</a>
-            </div>
-        </div>
-
-        <!-- ==========================================
+            <!-- ==========================================
              SECTION 3: QUÊN MẬT KHẨU
              Ẩn mặc định, hiện khi click "Quên mật khẩu?"
              ========================================== -->
-        <div class="auth-container" id="forgot-section">
-            <h1 class="simple-title">QUÊN MẬT KHẨU</h1>
-            <p class="simple-subtitle">Nhập email của bạn để lấy lại mật khẩu</p>
+                <section class="auth-container" id="forgot-section">
+                    <h1 class="simple-title">QUÊN MẬT KHẨU</h1>
+                    <p class="simple-subtitle">Nhập email của bạn để lấy lại mật khẩu</p>
 
-            <!-- Form đơn giản: chỉ có 1 input email -->
-            <form class="simple-form">
-                <div class="input-line-group">
-                    <input type="email" id="reset-email" class="input-field" placeholder="Email Address" required>
-                </div>
+                    <!-- Form đơn giản: chỉ có 1 input email -->
+                    <form class="simple-form">
+                        <div class="input-line-group">
+                            <input type="email" id="reset-email" class="input-field" placeholder="Email Address"
+                                required>
+                        </div>
 
-                <!-- Vùng hiển thị thông báo (token demo hoặc lỗi) -->
-                <div id="forgot-msg"></div>
+                        <!-- Vùng hiển thị thông báo (token demo hoặc lỗi) -->
+                        <div id="forgot-msg"></div>
 
-                <button type="submit" class="btn btn-primary btn-reset-password">LẤY LẠI MẬT KHẨU</button>
-            </form>
+                        <button type="submit" class="btn btn-primary btn-reset-password">LẤY LẠI MẬT KHẨU</button>
+                    </form>
 
-            <!-- Link quay lại form đăng nhập -->
-            <div class="simple-footer">
-                <a href="javascript:void(0)" onclick="showSection('login')" class="back-link">QUAY LẠI ĐĂNG NHẬP</a>
-            </div>
-        </div>
+                    <!-- Link quay lại form đăng nhập (dùng javascript:void(0) để tránh nhảy trang) -->
+                    <div class="simple-footer">
+                        <a href="javascript:void(0)" onclick="showSection('login')" class="back-link">QUAY LẠI ĐĂNG
+                            NHẬP</a>
+                    </div>
+                </section>
 
     </main>
 
     <!-- Footer được inject bởi components.js -->
     <footer></footer>
 
-    <!-- ===== SCRIPTS ===== -->
-    <!-- Thứ tự load quan trọng: components → main → auth (riêng trang này) -->
-    <script src="/assets/components.js"></script>
+    <!-- Javascript -->
     <script src="/assets/main.js"></script>
+    <script src="/assets/components.js"></script>
     <script src="/pages/auth/auth.js"></script>
-
-    <script>
-        /**
-         * Chuyển đổi giữa các section auth: login | register | forgot
-         * Ẩn tất cả section, chỉ hiện section được chỉ định
-         * @param {string} section - Tên section muốn hiển thị
-         */
-        function showSection(section) {
-            const sections = ['login', 'register', 'forgot'];
-            const wrapper  = document.getElementById('auth-wrapper');
-
-            // Xóa class "active" khỏi tất cả section
-            sections.forEach(s => {
-                const el = document.getElementById(s + '-section');
-                if (el) el.classList.remove('active');
-            });
-
-            // Thêm class "active" vào section muốn hiển thị
-            const activeEl = document.getElementById(section + '-section');
-            if (activeEl) {
-                activeEl.classList.add('active');
-
-                // Thêm class đặc biệt khi đang ở form đăng ký (để điều chỉnh layout rộng hơn)
-                if (section === 'register') {
-                    wrapper.classList.add('register-active');
-                } else {
-                    wrapper.classList.remove('register-active');
-                }
-            }
-        }
-
-        // Khi trang load xong: kiểm tra query param "mode" để auto mở đúng tab
-        // VD: auth.html?mode=register → tự mở tab Đăng ký
-        window.addEventListener('load', () => {
-            const params = new URLSearchParams(window.location.search);
-            const mode   = params.get('mode');
-            if (mode && ['login', 'register', 'forgot'].includes(mode)) {
-                showSection(mode);
-            }
-        });
-    </script>
 </body>
+
+</html>
 
 </html>

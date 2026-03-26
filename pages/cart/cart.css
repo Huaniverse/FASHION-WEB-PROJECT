@@ -1,57 +1,86 @@
-/* ===================================================
-   CART.CSS — DEUX | Trang Giỏ Hàng
-   Dùng kết hợp với style.css
-   =================================================== */
+/* hiệu ứng */
+@keyframes blobFloat {
 
-/* ===== PHẦN CHÍNH CỦA GIỎ HÀNG ===== */
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(20px, -30px) scale(1.05);
+    }
+
+    66% {
+        transform: translate(-15px, 20px) scale(0.97);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes stepIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes itemSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(500px) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@keyframes bounceIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* phần chính của trang giỏ hàng */
 .cart-main {
     background: #fdfbf7;
 }
 
-/* Nền trang trí */
-.cart-bg-deco {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.deco-blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(60px);
-}
-
-.deco-blob-1 {
-    width: 500px;
-    height: 500px;
-    background: rgba(0, 86, 179, 0.06);
-    top: -100px;
-    right: -150px;
-    animation: blobFloat 10s ease-in-out infinite;
-}
-
-.deco-blob-2 {
-    width: 350px;
-    height: 350px;
-    background: rgba(255, 215, 0, 0.05);
-    bottom: 50px;
-    left: -100px;
-    animation: blobFloat 13s ease-in-out infinite reverse;
-}
-
-@keyframes blobFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(20px, -30px) scale(1.05); }
-    66% { transform: translate(-15px, 20px) scale(0.97); }
-}
-
-.deco-dots {
-    position: absolute;
-    inset: 0;
-}
-
-/* ===== CẤU TRÚC BAO QUANH (WRAPPER) ===== */
+/* khung nội dung chính */
 .cart-wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -60,7 +89,7 @@
     z-index: 1;
 }
 
-/* ===== THANH CHỈ BÁO CÁC BƯỚC (STEP INDICATOR) ===== */
+/* thanh chứa các bước mua hàng */
 .step-bar {
     display: flex;
     align-items: center;
@@ -70,11 +99,7 @@
     animation: fadeInDown 0.6s ease-out;
 }
 
-@keyframes fadeInDown {
-    from { transform: translateY(-20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
+/* khung chứa các bước */
 .step {
     display: flex;
     flex-direction: column;
@@ -144,21 +169,16 @@
     background: #4CAF50;
 }
 
-/* ===== CÁC BƯỚC TRONG GIỎ HÀNG (HIỆN/ẨN) ===== */
+/* hiệu ứng chuyển bước */
 .cart-step {
     animation: stepIn 0.5s ease-out;
-}
-
-@keyframes stepIn {
-    from { opacity: 0; transform: translateX(30px); }
-    to { opacity: 1; transform: translateX(0); }
 }
 
 .hidden {
     display: none !important;
 }
 
-/* ===== BỐ CỤC GIỎ HÀNG (LAYOUT) ===== */
+/* bố cục grid layout 2 cột */
 .cart-layout {
     display: grid;
     grid-template-columns: 1fr 360px;
@@ -166,7 +186,7 @@
     align-items: start;
 }
 
-/* ===== TIÊU ĐỀ BẢNG THÔNG TIN (PANEL HEADER) ===== */
+/* tiêu đề bảng sản phẩm */
 .panel-header {
     display: flex;
     align-items: center;
@@ -193,7 +213,18 @@
     border-color: #cc3333;
 }
 
-/* ===== BẢNG DANH SÁCH SẢN PHẨM ===== */
+/* Nút viền xanh dùng cho nút Xóa tất cả, Quay lại */
+.btn-outline {
+    background: transparent;
+    border: 1.5px solid var(--primary-blue);
+    color: var(--primary-blue);
+}
+
+.btn-outline:hover {
+    background: rgba(0, 86, 179, 0.05);
+}
+
+/* bảng danh sách sản phẩm */
 .cart-items-panel {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(12px);
@@ -203,7 +234,7 @@
     box-shadow: 0 8px 40px rgba(0, 51, 102, 0.08);
 }
 
-/* ===== TRẠNG THÁI GIỎ HÀNG TRỐNG ===== */
+/* giỏ hàng trống */
 .cart-empty {
     display: none;
     flex-direction: column;
@@ -245,7 +276,7 @@
     padding: 12px 30px;
 }
 
-/* ===== CHI TIẾT SẢN PHẨM TRONG GIỎ (CART ITEM) ===== */
+/* hiển thị các sản phẩm trong giỏ hàng */
 .cart-item {
     display: flex;
     align-items: center;
@@ -258,10 +289,6 @@
     padding: 16px 12px;
 }
 
-@keyframes itemSlideIn {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
-}
 
 .cart-item:hover {
     background: rgba(0, 86, 179, 0.03);
@@ -278,6 +305,7 @@
     box-shadow: 0 4px 12px rgba(0, 51, 102, 0.1);
 }
 
+/* khung chứa thông tin sản phẩm */
 .item-info {
     flex: 1;
     min-width: 0;
@@ -293,12 +321,14 @@
     text-overflow: ellipsis;
 }
 
+/* giá tiền/sản phẩm */
 .item-price-unit {
     font-size: 13px;
     color: #888;
     margin-bottom: 10px;
 }
 
+/* điều chỉnh số lượng */
 .qty-control {
     display: flex;
     align-items: center;
@@ -326,6 +356,7 @@
     background: rgba(0, 86, 179, 0.15);
 }
 
+/* số lượng */
 .qty-num {
     width: 36px;
     text-align: center;
@@ -338,6 +369,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
+/* tổng tiền */
 .item-total {
     font-size: 16px;
     font-weight: 700;
@@ -347,6 +379,7 @@
     text-align: right;
 }
 
+/* xóa sản phẩm */
 .btn-remove-item {
     background: none;
     border: none;
@@ -363,13 +396,13 @@
     transform: scale(1.2);
 }
 
-/* ===== SUMMARY CARD ===== */
+/* khung tóm tắt đơn hàng */
 .cart-summary-panel {
     position: sticky;
     top: 90px;
 }
 
-/* ===== THẺ TÓM TẮT ĐƠN HÀNG (SUMMARY CARD) ===== */
+/* thẻ tóm tắt đơn hàng */
 .summary-card {
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(12px);
@@ -388,6 +421,7 @@
     border-bottom: 1px solid rgba(0, 86, 179, 0.1);
 }
 
+/* các dòng thông tin */
 .summary-row {
     display: flex;
     justify-content: space-between;
@@ -454,10 +488,16 @@
     min-height: 18px;
     margin-bottom: 12px;
 }
-.coupon-msg.success { color: #4CAF50; }
-.coupon-msg.error { color: #cc3333; }
 
-/* Checkout button */
+.coupon-msg.success {
+    color: #4CAF50;
+}
+
+.coupon-msg.error {
+    color: #cc3333;
+}
+
+/* nút thanh toán */
 .btn-checkout {
     letter-spacing: 0.3px;
     box-shadow: 0 6px 20px rgba(0, 51, 102, 0.25);
@@ -482,9 +522,11 @@
     transition: color 0.3s;
 }
 
-.link-continue:hover { color: var(--primary-blue); }
+.link-continue:hover {
+    color: var(--primary-blue);
+}
 
-/* ===== MINI SUMMARY (step 2,3) ===== */
+/* tóm tắt đơn hàng ở bước 2 và 3 */
 .mini-summary {
     padding: 22px;
 }
@@ -548,7 +590,7 @@
     color: var(--primary-blue);
 }
 
-/* ===== BẢNG NHẬP THÔNG TIN (FORM PANEL) ===== */
+/* bảng nhập thông tin */
 .form-panel {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(12px);
@@ -558,6 +600,7 @@
     box-shadow: 0 8px 40px rgba(0, 51, 102, 0.08);
 }
 
+/* chia bố cục 2 cột */
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -596,9 +639,11 @@
     box-shadow: 0 0 0 3px rgba(204, 51, 51, 0.1);
 }
 
-.req { color: #cc3333; }
+.req {
+    color: #cc3333;
+}
 
-/* Shipping methods */
+/* khung chứa các phương thức vận chuyển */
 .shipping-methods {
     margin-bottom: 24px;
 }
@@ -612,6 +657,7 @@
     margin-bottom: 12px;
 }
 
+/* các phương thức vận chuyển */
 .method-option {
     display: flex;
     align-items: center;
@@ -625,7 +671,10 @@
     background: rgba(253, 251, 247, 0.8);
 }
 
-.method-option input { display: none; }
+/* ẩn nút radio */
+.method-option input {
+    display: none;
+}
 
 .method-option.selected {
     border-color: var(--primary-blue);
@@ -633,7 +682,9 @@
     box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.08);
 }
 
-.method-info { flex: 1; }
+.method-info {
+    flex: 1;
+}
 
 .method-name {
     font-size: 14px;
@@ -656,9 +707,10 @@
     color: var(--primary-blue);
 }
 
-.free-ship { color: #4CAF50; }
+.free-ship {
+    color: #4CAF50;
+}
 
-/* Form actions */
 .form-actions {
     display: flex;
     gap: 12px;
@@ -677,7 +729,7 @@
     margin-bottom: 0;
 }
 
-/* ===== CÁC PHƯƠNG THỨC THANH TOÁN (PAYMENT METHODS) ===== */
+/* khung chứa các phương thức thanh toán */
 .payment-methods {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -685,6 +737,7 @@
     margin-bottom: 24px;
 }
 
+/* các phương thức thanh toán */
 .pay-option {
     display: flex;
     flex-direction: column;
@@ -702,7 +755,9 @@
     background: rgba(253, 251, 247, 0.8);
 }
 
-.pay-option input { display: none; }
+.pay-option input {
+    display: none;
+}
 
 .pay-option i {
     font-size: 22px;
@@ -717,9 +772,11 @@
     box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
 }
 
-.pay-option.selected i { color: var(--primary-blue); }
+.pay-option.selected i {
+    color: var(--primary-blue);
+}
 
-/* ===== HÌNH ẢNH TRỰC QUAN CỦA THẺ TÍN DỤNG ===== */
+/* hình ảnh thẻ tín dụng */
 .credit-card-visual {
     width: 100%;
     max-width: 360px;
@@ -748,7 +805,7 @@
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .card-visual-bg::after {
@@ -759,7 +816,7 @@
     width: 250px;
     height: 250px;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .card-chip {
@@ -817,7 +874,7 @@
     text-transform: uppercase;
 }
 
-/* Secure badge */
+/* khung chứa thông báo bảo mật */
 .secure-badge {
     display: flex;
     align-items: flex-start;
@@ -845,7 +902,9 @@
     align-items: center;
 }
 
-.cvv-wrap .form-input { padding-right: 36px; }
+.cvv-wrap .form-input {
+    padding-right: 36px;
+}
 
 .cvv-hint {
     position: absolute;
@@ -855,11 +914,11 @@
     font-size: 14px;
 }
 
-/* Pay placeholder */
 .pay-placeholder {
     margin-bottom: 20px;
 }
 
+/* khung chứa mã QR */
 .qr-mock {
     display: flex;
     flex-direction: column;
@@ -894,6 +953,7 @@
     color: #aaa;
 }
 
+/* khung chứa thông tin khi chọn thanh toán khi nhận hàng */
 .cod-info {
     display: flex;
     gap: 16px;
@@ -924,6 +984,7 @@
     line-height: 1.6;
 }
 
+/* nút thanh toán */
 .btn-pay {
     background: #1a8a00 !important;
     box-shadow: 0 6px 20px rgba(0, 100, 0, 0.3) !important;
@@ -934,7 +995,7 @@
     box-shadow: 0 12px 30px rgba(0, 100, 0, 0.4) !important;
 }
 
-/* ===== CONFIRM SCREEN ===== */
+/* trang xác nhận đặt hàng thành công */
 .confirm-wrapper {
     display: flex;
     justify-content: center;
@@ -970,10 +1031,6 @@
     animation: confettiFall linear forwards;
 }
 
-@keyframes confettiFall {
-    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(500px) rotate(720deg); opacity: 0; }
-}
 
 .confirm-icon {
     margin-bottom: 24px;
@@ -994,10 +1051,6 @@
     animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-@keyframes bounceIn {
-    from { transform: scale(0); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
 
 .confirm-card h2 {
     font-family: 'Playfair Display', serif;
@@ -1032,9 +1085,13 @@
     color: #555;
 }
 
-.order-info-row:last-child { border-bottom: none; }
+.order-info-row:last-child {
+    border-bottom: none;
+}
 
-.order-info-row strong { color: var(--text-dark); }
+.order-info-row strong {
+    color: var(--text-dark);
+}
 
 .status-pending {
     background: rgba(255, 165, 0, 0.12);
@@ -1051,13 +1108,8 @@
     margin: 0 auto;
 }
 
-/* ===== ACTIVE CART BTN ===== */
-.btn-cart.active-cart {
-    background: var(--primary-blue);
-    box-shadow: 0 4px 15px rgba(0, 51, 102, 0.3);
-}
 
-/* ===== RESPONSIVE ===== */
+/* reponsive */
 @media (max-width: 900px) {
     .cart-layout {
         grid-template-columns: 1fr;

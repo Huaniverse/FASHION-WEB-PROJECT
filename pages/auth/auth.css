@@ -1,45 +1,29 @@
 /* Nguyen Ba Thien An - B2405484 */
-/* ===================================================
-   AUTH.CSS — DEUX
-   CSS riêng cho trang xác thực: Đăng nhập, Đăng ký, Quên mật khẩu
-   Màu sắc kế thừa từ /assets/style.css (CSS variables)
-   =================================================== */
 
-/* ── WRAPPERS: Vùng ngoài cùng bọc toàn bộ form ───────────────────── */
-
-/* Wrapper chính: căn giữa toàn màn hình, có padding để cách header */
+/* khung chứa toàn bộ trang auth */
 .auth-wrapper {
-    min-height: calc(100vh - 70px); /* Chiều cao tối thiểu = toàn viewport trừ header */
+    min-height: calc(100vh - 70px);
     display: flex;
-    align-items: center;      /* Căn giữa dọc */
-    justify-content: center;  /* Căn giữa ngang */
+    align-items: center;      
+    justify-content: center;  
     background: var(--white-cream);
     padding: 40px 20px;
-    margin-top: 70px;         /* Offset bằng chiều cao header cố định */
+    margin-top: 70px;         
 }
 
-/* Khi form Đăng ký đang active: đặt content về phía trên
-   vì form đăng ký cao hơn → không cần căn giữa dọc nữa */
-.auth-wrapper.register-active {
-    align-items: flex-start;
-    padding: 30px 20px;
-}
-
-/* ── CONTAINERS: Hộp card chứa form ──────────────────────────────────*/
-
-/* Card form chung: ẩn mặc định (display:none), chỉ hiện khi có class "active" */
+/* Card form chung chỉ hiện khi có class "active" */
 .auth-container {
     width: 100%;
     max-width: 450px;
     padding: 50px 40px;
-    background: rgba(255, 255, 255, 0.9); /* Nền trắng bán trong */
+    background: rgba(255, 255, 255, 0.9); 
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0, 51, 102, 0.1);
-    animation: slideIn 0.6s ease-out; /* Hiệu ứng xuất hiện từ dưới lên */
+    animation: slideIn 0.6s ease-out; 
     display: none;
 }
 
-/* Class active: hiện container đang được chọn */
+/* hiển thị container đang được chọn */
 .auth-container.active {
     display: block;
 }
@@ -50,25 +34,19 @@
     padding: 35px 40px;
 }
 
-/* Container quên mật khẩu: căn giữa, tối giản */
+/* Container quên mật khẩu */
 .auth-container#forgot-section {
     max-width: 500px;
     text-align: center;
 }
 
-/* Keyframes: hiệu ứng trượt lên và hiện dần khi form xuất hiện */
-@keyframes slideIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── HEADER FORM: Tiêu đề và subtitle trên cùng mỗi form ─────────── */
+/* Tiêu đề và subtitle trên cùng của mỗi form */
 .auth-header {
     text-align: center;
     margin-bottom: 20px;
 }
 
-/* Tên lớn của form (VD: "TÀI KHOẢN") */
+/* Tên lớn của form */
 .auth-title {
     font-size: 22px;
     font-weight: 700;
@@ -85,8 +63,7 @@
     margin-bottom: 25px;
 }
 
-/* ── TIÊU ĐỀ ĐỜN GIẢN (form Quên mật khẩu) ─────────────────────── */
-/* Dùng font Playfair Display để tạo cảm giác sang trọng */
+/* Tiêu đề form Quên mật khẩu */
 .simple-title {
     font-family: 'Playfair Display', serif;
     font-size: 32px;
@@ -103,13 +80,13 @@
     letter-spacing: 1px;
 }
 
-/* ── INPUT GROUPS: Nhóm label + input field ──────────────────────── */
+/* Nhóm label + input field */
 .input-group {
     text-align: left;
     margin-bottom: 25px;
 }
 
-/* Label trên mỗi input: màu xanh, viết hoa, nhỏ */
+/* Label trên mỗi input */
 .input-group label {
     display: block;
     font-size: 12px;
@@ -119,25 +96,25 @@
     text-transform: uppercase;
 }
 
-/* Dấu * màu đỏ đánh dấu field bắt buộc */
+/* Dấu * màu đỏ đánh dấu bắt buộc */
 .mausao {
     color: #e03131;
     margin-left: 3px;
 }
 
-/* ── GRID LAYOUT FORM ĐĂNG KÝ: 2 cột trên màn hình rộng ─────────── */
+/* Grid layout form đăng ký */
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 cột bằng nhau */
-    gap: 0 20px;                     /* Chỉ có gap ngang, không có gap dọc */
+    grid-template-columns: 1fr 1fr; 
+    gap: 0 20px;                     
 }
 
-/* Input quên mật khẩu: khoảng cách dưới lớn hơn (form đơn giản) */
+/* Input quên mật khẩu */
 .input-line-group {
     margin-bottom: 40px;
 }
 
-/* ── FORM OPTIONS: Dòng "Ghi nhớ đăng nhập" + "Quên mật khẩu?" ──── */
+/* Dòng "Ghi nhớ đăng nhập" + "Quên mật khẩu?" */
 .form-options {
     display: flex;
     justify-content: space-between; /* Hai phần tử nằm hai đầu */
@@ -168,35 +145,33 @@
     text-decoration: underline;
 }
 
-/* ── BUTTONS: Nút submit của các form ──────────────────────────────── */
-
 /* Nút submit form đăng nhập / đăng ký */
 .btn-auth-submit {
-    margin-top: 10px;
+    display: flex;
+    margin: 10px auto 20px;
 }
 
 /* Nút "Lấy lại mật khẩu" có bo góc khác và size riêng */
 .btn-reset-password {
-    border-radius: 10px; /* Override kiểu btn-round từ style.css */
-    padding: 18px;
+    display: flex;
+    margin: 10px auto;
+    border-radius: 10px; 
+    padding: 15px 40px;
     font-size: 13px;
-    margin-top: 10px;
 }
 
-/* Hover: tăng letter-spacing để tạo hiệu ứng chuyển động chữ */
 .btn-reset-password:hover {
     letter-spacing: 2px;
 }
 
-/* ── CHECKBOX GROUP: Nhóm chọn phương thức liên hệ (form Đăng ký) ── */
+/* Nhóm chọn phương thức liên hệ */
 .contact-to-you {
     text-align: left;
     margin-bottom: 18px;
     padding: 12px 0 0;
-    border-top: 1px solid rgba(0, 51, 102, 0.08); /* Đường kẻ nhẹ phân cách */
+    border-top: 1px solid rgba(0, 51, 102, 0.08); 
 }
 
-/* Tiêu đề nhỏ của khối liên hệ */
 .contact-title {
     font-size: 14px;
     font-weight: 600;
@@ -204,7 +179,6 @@
     margin-bottom: 3px;
 }
 
-/* Mô tả bên dưới tiêu đề */
 .contact-subtitle {
     font-size: 12px;
     color: #666;
@@ -218,7 +192,7 @@
     gap: 20px;
 }
 
-/* Mỗi label checkbox */
+/* label checkbox */
 .checkbox-group label {
     display: flex;
     align-items: center;
@@ -228,7 +202,6 @@
     cursor: pointer;
 }
 
-/* Checkbox: màu theo brand color */
 .checkbox-group input[type="checkbox"] {
     width: 16px;
     height: 16px;
@@ -236,7 +209,7 @@
     cursor: pointer;
 }
 
-/* ── FOOTERS: Phần dưới mỗi form (link chuyển đổi tab) ─────────────── */
+/* footer của form */
 .auth-card-footer, .simple-footer {
     margin-top: 30px;
     font-size: 13px;
@@ -246,7 +219,7 @@
     color: var(--text-dark);
 }
 
-/* Link chuyển đổi tab (VD: "ĐĂNG KÝ NGAY") */
+/* Link chuyển đổi tab */
 .link-auth, .back-link {
     display: inline-block;
     margin-top: 6px;
@@ -257,7 +230,7 @@
     transition: 0.2s;
 }
 
-/* Link "Quay lại đăng nhập" trên form forgot: nhỏ hơn, màu tối hơn */
+/* Link "Quay lại đăng nhập" trên form forgot */
 .back-link {
     font-size: 12px;
     font-weight: 600;
@@ -270,7 +243,13 @@
     text-decoration: underline;
 }
 
-/* ── RESPONSIVE: Điều chỉnh layout trên màn hình nhỏ (≤ 768px) ─────── */
+/* kiểm tra lỗi */
+.input-group input.invalid {
+    border-color: #c0392b !important;
+    box-shadow: 0 0 0 3px rgba(192,57,43,0.1) !important;
+}
+
+/* reponsive */
 @media (max-width: 768px) {
 
     /* Giảm padding card */
@@ -278,18 +257,18 @@
         padding: 35px 25px;
     }
 
-    /* Form đăng ký: chuyển từ 2 cột → 1 cột */
+    /* Form đăng ký chuyển từ 2 cột → 1 cột */
     .form-grid {
         grid-template-columns: 1fr;
     }
 
-    /* Checkbox phương thức liên hệ: xếp dọc */
+    /* Checkbox phương thức liên hệ xếp dọc */
     .checkbox-group {
         flex-direction: column;
         gap: 10px;
     }
 
-    /* Form options: xếp dọc thay vì nằm cùng hàng */
+    /* Form options xếp dọc */
     .form-options {
         flex-direction: column;
         align-items: flex-start;
