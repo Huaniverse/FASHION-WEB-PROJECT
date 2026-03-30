@@ -4,40 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Tiêu đề trang: được cập nhật động bởi product-detail.js nếu cần -->
     <title>Chi Tiết Sản Phẩm | DEUX</title>
-    <!-- Favicon -->
     <link rel="icon" href="/assets/images/favicon.png" type="image/png">
-    <!-- CSS chung toàn dự án -->
     <link rel="stylesheet" href="/assets/style.css">
-    <!-- CSS riêng cho trang chi tiết sản phẩm (slider, gallery, size picker...) -->
     <link rel="stylesheet" href="product-detail.css">
-    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
         rel="stylesheet">
-    <!-- Font Awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-    <!-- Header được inject bởi components.js -->
+    <!--  header được chèn bởi components.js  -->
     <header></header>
 
-    <!-- ===== NỘI DUNG CHÍNH TRANG CHI TIẾT SẢN PHẨM ===== -->
+    <!--  nội dung chính trang chi tiết sản phẩm  -->
     <main class="page-wrapper product-detail-section">
         <div class="container">
             <!-- Layout 2 cột: gallery ảnh bên trái, thông tin bên phải -->
             <div class="product-layout">
 
-                <!-- ===== CỘT TRÁI: GALLERY ẢNH SẢN PHẨM ===== -->
+                <!--  cột trái: gallery ảnh sản phẩm  -->
                 <div class="product-gallery">
 
-                    <!-- Vùng ảnh chính với nút điều hướng slider -->
+                    <!-- Vùng ảnh chính với nút điều hướng -->
                     <div class="main-image-container">
 
-                        <!-- Nút "Previous": lùi về ảnh trước
-                             class="hidden": ẩn mặc định, hiện khi có nhiều hơn 1 ảnh (bởi JS) -->
+                        <!-- Nút "Previous": lùi về ảnh trước -->
                         <button class="slider-btn prev-btn hidden" id="prevImageBtn">
                             <i class="fas fa-chevron-left"></i>
                         </button>
@@ -45,7 +38,7 @@
                         <!-- Ảnh sản phẩm chính: src và alt được gán bởi product-detail.js -->
                         <img id="productImage" src="" alt="Sản phẩm">
 
-                        <!-- Nút "Next": tiến sang ảnh tiếp theo, cũng ẩn mặc định -->
+                        <!-- Nút "Next": sang ảnh tiếp theo -->
                         <button class="slider-btn next-btn hidden" id="nextImageBtn">
                             <i class="fas fa-chevron-right"></i>
                         </button>
@@ -56,19 +49,19 @@
                     <div class="thumbnail-gallery" id="thumbnailGallery"></div>
                 </div>
 
-                <!-- ===== CỘT PHẢI: THÔNG TIN VÀ TƯƠNG TÁC ===== -->
+                <!-- Cột phải: thông tin và tương tác -->
                 <div class="product-info">
 
                     <!-- Tên sản phẩm: "Đang tải..." là placeholder, được cập nhật bởi JS -->
                     <h1 id="productName" class="section-title">Đang tải...</h1>
 
-                    <!-- Giá sản phẩm: có thể là 1 giá hoặc 2 giá (gốc + sale) tùy dữ liệu -->
+                    <!-- Giá sản phẩm -->
                     <p class="detail-price" id="productPrice">0đ</p>
 
                     <!-- Đường kẻ ngang phân cách giá và mô tả -->
                     <div class="divider"></div>
 
-                    <!-- Mô tả sản phẩm: được điền bởi product-detail.js -->
+                    <!-- Mô tả sản phẩm -->
                     <p class="detail-description" id="productDescription"></p>
 
                     <!-- ── Chọn kích cỡ ── -->
@@ -105,12 +98,10 @@
         </div>
     </main>
 
-    <!-- Footer được inject bởi components.js -->
+    <!--  footer được chèn bởi components.js  -->
     <footer></footer>
 
-    <!-- ===== SCRIPTS =====
-         Thứ tự load: main.js → components.js → product-detail.js
-         (cần main trước để header/footer + session sẵn sàng) -->
+    <!--  JavaScript  -->
     <script src="/assets/main.js"></script>
     <script src="/assets/components.js"></script>
     <script src="product-detail.js"></script>

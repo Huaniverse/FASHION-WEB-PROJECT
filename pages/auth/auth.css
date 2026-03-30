@@ -1,6 +1,4 @@
-/* Nguyen Ba Thien An - B2405484 */
-
-/* khung chứa toàn bộ trang auth */
+/* khung chứa toàn bộ nội dung trang tài khoản */
 .auth-wrapper {
     min-height: calc(100vh - 70px);
     display: flex;
@@ -11,7 +9,7 @@
     margin-top: 70px;         
 }
 
-/* Card form chung chỉ hiện khi có class "active" */
+/* card form chung: chỉ hiện khi có class "active" */
 .auth-container {
     width: 100%;
     max-width: 450px;
@@ -23,12 +21,12 @@
     display: none;
 }
 
-/* hiển thị container đang được chọn */
+/* hiển thị container được chọn */
 .auth-container.active {
     display: block;
 }
 
-/* Container đăng ký rộng hơn vì có nhiều field và layout 2 cột */
+/* section đăng ký: rộng hơn để chứa 2 cột */
 .auth-container#register-section {
     max-width: 640px;
     padding: 35px 40px;
@@ -40,7 +38,7 @@
     text-align: center;
 }
 
-/* Tiêu đề và subtitle trên cùng của mỗi form */
+/* header của form: chứa tiêu đề và subtitle */
 .auth-header {
     text-align: center;
     margin-bottom: 20px;

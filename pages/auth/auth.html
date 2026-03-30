@@ -1,5 +1,3 @@
-<!-- Nguyen Ba Thien An - B2405484 -->
-
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -22,17 +20,17 @@
     <!--  header được chèn bởi components.js  -->
     <header></header>
 
-    <!-- auth-wrapper chứa 3 section: login, register, forgot -->
+    <!--  auth-wrapper: chứa 3 section đăng nhập, đăng ký, quên mật khẩu  -->
     <main class="page-wrapper auth-wrapper" id="auth-wrapper">
 
-        <!-- section 1: Đăng nhập có class "active" để hiển thị trước -->
+        <!--  section đăng nhập: hiển thị mặc định qua class "active"  -->
         <section class="auth-container active" id="login-section">
             <div class="auth-header">
                 <h2 class="auth-title">TÀI KHOẢN</h2>
                 <p class="subtitle">Chào mừng bạn đã đến với DEUX</p>
             </div>
 
-            <!-- Form đăng nhập, auth.js sẽ lắng nghe sự kiện submit -->
+            <!-- Form đăng nhập: login-form được xử lý bởi auth.js -->
             <form class="login-form">
 
                 <!-- Input Email -->
@@ -71,10 +69,7 @@
             </div>
         </section>
 
-        <!-- ==========================================
-             SECTION 2: ĐĂNG KÝ
-             Không có class "active" → ẩn mặc định
-             ========================================== -->
+        <!--  section đăng ký: ẩn mặc định, chuyển đổi qua auth.js  -->
             <section class="auth-container" id="register-section">
                 <div class="auth-header">
                     <h2 class="auth-title">TÀI KHOẢN</h2>
@@ -156,10 +151,7 @@
                 </div>
             </section>
 
-            <!-- ==========================================
-             SECTION 3: QUÊN MẬT KHẨU
-             Ẩn mặc định, hiện khi click "Quên mật khẩu?"
-             ========================================== -->
+            <!--  section quên mật khẩu: ẩn mặc định, hiện khi click "Quên mật khẩu?"  -->
                 <section class="auth-container" id="forgot-section">
                     <h1 class="simple-title">QUÊN MẬT KHẨU</h1>
                     <p class="simple-subtitle">Nhập email của bạn để lấy lại mật khẩu</p>
@@ -186,10 +178,10 @@
 
     </main>
 
-    <!-- Footer được inject bởi components.js -->
+    <!--  footer được chèn bởi components.js  -->
     <footer></footer>
 
-    <!-- Javascript -->
+    <!--  JavaScript  -->
     <script src="/assets/main.js"></script>
     <script src="/assets/components.js"></script>
     <script src="/pages/auth/auth.js"></script>

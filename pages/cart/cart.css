@@ -1,4 +1,4 @@
-/* hiệu ứng */
+/* hiệu ứng lơ lửng cho các vật trang trí */
 @keyframes blobFloat {
 
     0%,
@@ -15,6 +15,7 @@
     }
 }
 
+/* hiệu ứng hiện từ trên xuống cho step bar */
 @keyframes fadeInDown {
     from {
         transform: translateY(-20px);
@@ -27,48 +28,36 @@
     }
 }
 
+/* hiệu ứng hiện từng bước thanh toán */
 @keyframes stepIn {
     from {
         opacity: 0;
         transform: translateX(30px);
     }
-
     to {
         opacity: 1;
         transform: translateX(0);
     }
 }
 
+/* hiệu ứng hiện sản phẩm trong danh sách */
 @keyframes itemSlideIn {
     from {
         opacity: 0;
         transform: translateX(-20px);
     }
-
     to {
         opacity: 1;
         transform: translateX(0);
     }
 }
 
-@keyframes confettiFall {
-    0% {
-        transform: translateY(-20px) rotate(0deg);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(500px) rotate(720deg);
-        opacity: 0;
-    }
-}
-
+/* hiệu ứng hiện thông báo xác nhận */
 @keyframes bounceIn {
     from {
         transform: scale(0);
         opacity: 0;
     }
-
     to {
         transform: scale(1);
         opacity: 1;
@@ -108,6 +97,7 @@
     position: relative;
 }
 
+/* vòng tròn số thứ tự bước */
 .step-circle {
     width: 50px;
     height: 50px;
@@ -123,6 +113,7 @@
     box-shadow: 0 4px 15px rgba(0, 51, 102, 0.08);
 }
 
+/* chữ mô tả dưới mỗi bước */
 .step span {
     font-size: 11px;
     font-weight: 600;
@@ -155,6 +146,7 @@
     color: #4CAF50;
 }
 
+/* đường line nối giữa các bước */
 .step-line {
     flex: 1;
     height: 2px;
@@ -165,11 +157,12 @@
     transition: background 0.4s;
 }
 
+/* đường line khi bước đó đã hoàn thành */
 .step-line.done {
     background: #4CAF50;
 }
 
-/* hiệu ứng chuyển bước */
+/* hiệu ứng chuyển step */
 .cart-step {
     animation: stepIn 0.5s ease-out;
 }
@@ -186,7 +179,7 @@
     align-items: start;
 }
 
-/* tiêu đề bảng sản phẩm */
+/* tiêu đề giỏ hàng */
 .panel-header {
     display: flex;
     align-items: center;
@@ -202,6 +195,7 @@
     color: var(--primary-blue);
 }
 
+/* nút xóa tất cả (màu đỏ nhẹ) */
 .btn-clear-cart {
     background: none;
     border: 1px solid rgba(220, 60, 60, 0.3);
@@ -247,6 +241,7 @@
     display: flex;
 }
 
+/* icon túi hàng trống */
 .empty-icon {
     width: 90px;
     height: 90px;
@@ -294,6 +289,7 @@
     background: rgba(0, 86, 179, 0.03);
 }
 
+/* ảnh đại diện sản phẩm */
 .item-img {
     width: 85px;
     height: 85px;
@@ -311,6 +307,7 @@
     min-width: 0;
 }
 
+/* tên sản phẩm (có rút gọn nếu quá dài) */
 .item-name {
     font-size: 15px;
     font-weight: 600;
@@ -339,6 +336,7 @@
     width: fit-content;
 }
 
+/* các nút cộng trừ trong qty-control */
 .qty-btn {
     width: 30px;
     height: 30px;
@@ -431,6 +429,7 @@
     margin-bottom: 12px;
 }
 
+/* chữ "Miễn phí" hoặc "Giảm giá" có màu xanh */
 .fee-free {
     color: #4CAF50;
     font-weight: 600;
@@ -461,6 +460,7 @@
     margin-bottom: 8px;
 }
 
+/* input nhập mã coupon */
 .coupon-input {
     flex: 1;
     padding: 10px 14px;
@@ -513,6 +513,7 @@
     cursor: not-allowed;
 }
 
+/* chữ quay lại mua sắm dưới nút thanh toán */
 .link-continue {
     display: block;
     text-align: center;
@@ -549,6 +550,7 @@
     margin-bottom: 12px;
 }
 
+/* ảnh nhỏ của sản phẩm trong mini summary */
 .mini-item-img {
     width: 50px;
     height: 50px;
@@ -634,11 +636,13 @@
     background: white;
 }
 
+/* trạng thái lỗi của input */
 .form-input.error {
     border-color: #cc3333;
     box-shadow: 0 0 0 3px rgba(204, 51, 51, 0.1);
 }
 
+/* đánh dấu trường bắt buộc */
 .req {
     color: #cc3333;
 }
@@ -701,6 +705,7 @@
     color: #888;
 }
 
+/* giá của phương thức vận chuyển */
 .method-price {
     font-size: 14px;
     font-weight: 700;
@@ -819,6 +824,7 @@
     border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+/* chip và logo trên thẻ */
 .card-chip {
     font-size: 22px;
     margin-bottom: 18px;
@@ -1016,21 +1022,6 @@
     overflow: hidden;
 }
 
-.confetti-wrap {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.confetti-piece {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 2px;
-    animation: confettiFall linear forwards;
-}
-
 
 .confirm-icon {
     margin-bottom: 24px;
@@ -1052,6 +1043,7 @@
 }
 
 
+/* tiêu đề thông báo thành công */
 .confirm-card h2 {
     font-family: 'Playfair Display', serif;
     font-size: 32px;
@@ -1093,6 +1085,7 @@
     color: var(--text-dark);
 }
 
+/* trạng thái đơn hàng (đang xử lý) */
 .status-pending {
     background: rgba(255, 165, 0, 0.12);
     color: #e68a00;
@@ -1129,6 +1122,7 @@
         gap: 0;
     }
 
+    /* ẩn chữ mô tả bước trên mobile để tiết kiệm diện tích */
     .step span {
         display: none;
     }
@@ -1137,6 +1131,7 @@
         max-width: 40px;
     }
 
+    /* chuyển form sang layout 1 cột */
     .form-grid {
         grid-template-columns: 1fr;
     }
@@ -1145,6 +1140,7 @@
         grid-column: 1;
     }
 
+    /* đảo chiều nút quay lại và tiếp tục */
     .form-actions {
         flex-direction: column-reverse;
     }
@@ -1155,6 +1151,7 @@
         justify-content: center;
     }
 
+    /* thu nhỏ kích thước thẻ tín dụng */
     .credit-card-visual {
         height: 175px;
         padding: 18px 20px;
@@ -1164,6 +1161,7 @@
         padding: 35px 22px;
     }
 
+    /* xếp chồng các phương thức thanh toán */
     .payment-methods {
         grid-template-columns: 1fr;
     }

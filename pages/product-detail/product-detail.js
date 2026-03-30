@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Lấy ID sản phẩm từ query string (?id=...) 
+    /** Lấy ID sản phẩm từ URL */
     const params = new URLSearchParams(window.location.search);
     const id = Number(params.get("id"));
 
-    // Tải danh sách sản phẩm từ file JSON
+    /** Tải danh sách sản phẩm từ JSON */
     fetch('/assets/products.json')
         .then(function (res) {
             return res.json();
         })
         .then(function (products) {
 
-            // Tìm sản phẩm khớp với ID
+            /** Tìm sản phẩm khớp với ID */
             let product = null;
             for (let i = 0; i < products.length; i++) {
                 if (products[i].id === id) {
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
 
-            // Nếu không tìm thấy -> hiển thị lỗi
+            /** Xử lý nếu không tìm thấy */
             if (!product) {
                 document.querySelector('.product-layout').innerHTML = "<h2>Sản phẩm không tồn tại</h2>";
                 return;
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const productImgEl = document.getElementById("productImage");
             const thumbnailGallery = document.getElementById("thumbnailGallery");
 
-            // Cập nhật ảnh chính khi chuyển 
+            /** Cập nhật ảnh chính */
             function updateMainImage(index) {
                 currentImageIndex = index;
 
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 };
             }
 
-            // Thêm vào giỏ hàng
+            /** Thêm sản phẩm vào giỏ hàng */
             document.getElementById("addToCart").onclick = function () {
 
                 // Kiểm tra đăng nhập

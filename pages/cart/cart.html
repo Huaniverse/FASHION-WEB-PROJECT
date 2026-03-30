@@ -16,15 +16,15 @@
 
 <body>
 
-    <!-- ===== ĐẦU TRANG (HEADER) - Dùng chung từ components.js ===== -->
+    <!--  header được chèn bởi components.js  -->
     <header></header>
 
-    <!-- ===== NỘI DUNG CHÍNH CỦA TRANG GIỎ HÀNG ===== -->
+    <!--  nội dung chính của trang giỏ hàng  -->
     <main class="page-wrapper cart-main">
 
         <div class="cart-wrapper">
 
-            <!-- ===== THANH CHỈ BÁO CÁC BƯỚC (STEP INDICATOR) ===== -->
+            <!--  thanh chỉ báo các bước (step indicator)  -->
             <div class="step-bar">
                 <div class="step active" id="step-ind-1">
                     <div class="step-circle"><i class="fas fa-shopping-bag"></i></div>
@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <!-- ===== STEP 1: GIỎ HÀNG ===== -->
+            <!--  bước 1: giỏ hàng  -->
             <div class="cart-step" id="step-1">
                 <div class="cart-layout">
 
@@ -114,7 +114,7 @@
                 </div>
             </div>
 
-            <!-- ===== STEP 2: THÔNG TIN GIAO HÀNG ===== -->
+            <!--  bước 2: thông tin giao hàng  -->
             <div class="cart-step hidden" id="step-2">
                 <div class="cart-layout">
                     <!-- Bảng thông tin giao hàng -->
@@ -194,7 +194,7 @@
                 </div>
             </div>
 
-            <!-- ===== STEP 3: THANH TOÁN ===== -->
+            <!--  bước 3: thanh toán  -->
             <div class="cart-step hidden" id="step-3">
                 <div class="cart-layout">
                     <div class="form-panel">
@@ -305,12 +305,11 @@
                 </div>
             </div>
 
-            <!-- ===== STEP 4: XÁC NHẬN ===== -->
+            <!--  bước 4: xác nhận  -->
             <div class="cart-step hidden" id="step-4">
                 <div class="confirm-wrapper">
                 <!-- Thông báo đặt hàng thành công -->
                 <div class="confirm-card">
-                        <div class="confetti-wrap" id="confetti-wrap"></div>
                         <div class="confirm-icon">
                             <div class="confirm-circle">
                                 <i class="fas fa-check"></i>
@@ -349,10 +348,10 @@
                 </div>
             </div>
 
-        </div><!-- end cart-wrapper -->
+        </div>
     </main>
 
-    <!-- ===== FOOTER (dùng lại từ index) ===== -->
+    <!--  footer được chèn bởi components.js  -->
     <footer></footer>
     
     <div id="clear-cart-modal" class="custom-modal">

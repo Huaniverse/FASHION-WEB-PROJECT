@@ -1,14 +1,14 @@
-// Lấy danh sách tất cả users từ localStorage
+/** Lấy danh sách người dùng từ localStorage */
 function getUsers() {
     return JSON.parse(localStorage.getItem('eb_users') || '[]');
 }
 
-// Lưu danh sách users vào localStorage
+/** Lưu danh sách người dùng vào localStorage */
 function saveUsers(users) {
     localStorage.setItem('eb_users', JSON.stringify(users));
 }
 
-// Chuyển đổi giữa các section auth: login | register | forgot
+/** Chuyển đổi giữa các section: login | register | forgot */
 function showSection(section) {
     const sections = ['login', 'register', 'forgot'];
     const wrapper = document.getElementById('auth-wrapper');
@@ -24,7 +24,7 @@ function showSection(section) {
         }
     }
 
-    // Thêm class "active" vào section muốn hiển thị
+    // Hiển thị section được chọn
     const activeEl = document.getElementById(section + '-section');
     if (activeEl) {
         activeEl.classList.add('active');
@@ -38,7 +38,7 @@ function showSection(section) {
     }
 }
 
-// Lưu session
+/** Lưu thông tin phiên đăng nhập */
 function setSession(user) {
     // Tạo bản sao user nhưng bỏ password
     const safeUser = {
@@ -53,7 +53,7 @@ function setSession(user) {
     localStorage.setItem('eb_session', JSON.stringify(safeUser));
 }
 
-// Khởi tạo tài khoản demo mẫu nếu chưa tồn tại
+/** Khởi tạo tài khoản demo nếu chưa có */
 function initDemoAccount() {
     const demoEmail = 'test@gmail.com';
     const users = getUsers();
@@ -83,34 +83,32 @@ function initDemoAccount() {
     }
 }
 
-// Đăng xuất: xóa session và quay về trang chủ
+/** Đăng xuất và quay về trang chủ */
 function logout() {
     localStorage.removeItem('eb_session');
     window.location.href = '/index.html';
 }
 
-// Kiểm tra định dạng email hợp lệ
+/** Kiểm tra định dạng email */
 function isValidEmail(email) {
     const strictRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return strictRegex.test(email);
 }
 
-// Kiểm tra số điện thoại 
+/** Kiểm tra định dạng số điện thoại VN */
 function isValidPhone(phone) {
     return /^(0|\+84)[0-9]{9}$/.test(phone.replace(/\s/g, ''));
 }
 
 
 
-// Form đăng ký
+/** Khởi tạo logic form đăng ký */
 function initRegister() {
     const form = document.querySelector('.register-form');
-    if (!form) {
-        return; 
-    }
+    if (!form) return;
 
     form.addEventListener('submit', function (e) {
-        e.preventDefault(); // Ngăn form submit reload trang
+        e.preventDefault(); // chặn reload trang
 
         // Lấy giá trị từ các input
         const fullname = document.getElementById('reg-fullname').value.trim();
@@ -200,12 +198,10 @@ function initRegister() {
     });
 }
 
-// Form đăng nhập
+/** Khởi tạo logic form đăng nhập */
 function initLogin() {
     const form = document.querySelector('.login-form');
-    if (!form) {
-        return;
-    }
+    if (!form) return;
 
     // Hiển thị thông báo nếu vừa đăng ký xong
     if (new URLSearchParams(location.search).get('registered')) {
@@ -295,12 +291,10 @@ function initLogin() {
     }
 }
 
-// Form quên mật khẩu
+/** Khởi tạo logic form quên mật khẩu */
 function initForgot() {
     const form = document.querySelector('.simple-form');
-    if (!form) {
-        return;
-    }
+    if (!form) return;
 
     form.addEventListener('submit', function (e) {
         e.preventDefault(); // Ngăn form submit reload trang

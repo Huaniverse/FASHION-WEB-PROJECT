@@ -1,15 +1,15 @@
-/* khung trang chi tiết */
+/* khung nội dung chi tiết sản phẩm */
 .product-detail-section {
-    padding: 80px 0 100px; /* Padding trên (cách header) và dưới (cách footer) */
+    padding: 80px 0 100px; 
 }
 
-/* Override title để căn trái (style.css căn giữa) */
+/* Override title căn trái (style.css căn giữa) */
 .section-title {
     text-align: left;
     margin-bottom: 10px;
 }
 
-/* chia 2 cột */
+/* bố cục chia 2 cột */
 .product-layout {
     display: grid;
     grid-template-columns: 1.2fr 1fr; /* Cột ảnh rộng hơn cột thông tin*/
@@ -17,7 +17,7 @@
     align-items: start; /* Căn đầu cột, không kéo dài theo cột kia */
 }
 
-/* khung chứa ảnh */
+/* khung chứa ảnh chính */
 .main-image-container {
     width: 100%;
     aspect-ratio: 3/4;           /* Tỉ lệ ảnh thời trang (cao hơn rộng) */
@@ -35,7 +35,7 @@
     transition: opacity 0.3s ease; 
 }
 
-/* nút chuyển ảnh */
+/* nút điều hướng ảnh (slider) */
 .slider-btn {
     position: absolute;
     top: 50%;                                   
@@ -85,7 +85,7 @@
     display: none !important;
 }
 
-/* ảnh nhỏ bên dưới ảnh chính */
+/* danh sách ảnh nhỏ bên dưới */
 .thumbnail-gallery {
     display: flex;
     gap: 12px;
@@ -127,7 +127,7 @@
     object-fit: cover;
 }
 
-/* hiển thị giá sản phẩm */
+/* tầng hiển thị giá */
 .detail-price {
     display: flex;
     align-items: center;

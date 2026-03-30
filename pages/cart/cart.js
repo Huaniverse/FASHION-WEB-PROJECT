@@ -1,21 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
-
-    // ────────────────────────────────────────────────────────
-    // KIỂM TRA ĐĂNG NHẬP
-    // ────────────────────────────────────────────────────────
-    if (!requireLogin()) {
-        return;
-    }
+    /** Kiểm tra đăng nhập */
+    if (!requireLogin()) return;
     const session = getSession();
 
-    // ────────────────────────────────────────────────────────
-    // BIẾN TRẠNG THÁI TOÀN CỤC
-    // ────────────────────────────────────────────────────────
-    let   cart           = getCart();
-    let   currentStep    = 1;      // Bước hiện tại (1-4)
-    let   discount       = 0;      // Phần trăm giảm giá (0-100)
-    let   shippingFee    = 0;      // Phí vận chuyển
-    let   appliedCoupon  = '';     // Mã coupon đã áp dụng
+    /** Biến trạng thái giỏ hàng */
+    let cart = getCart();
+    let currentStep = 1;
+    let discount = 0;
+    let shippingFee = 0;
+    let appliedCoupon = '';
 
     // Danh sách mã giảm giá hợp lệ
     const COUPONS = {
@@ -24,12 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
         'VIP30':  30
     };
 
-    // ────────────────────────────────────────────────────────
-    // TÍNH TOÁN GIÁ TRỊ ĐƠN HÀNG
-    // ────────────────────────────────────────────────────────
+/** Tính toán giá trị đơn hàng */
 
-    // Tính tổng tiền hàng (chưa tính giảm giá và phí ship)
-    function calcSubtotal() {
+/** Tính tổng tiền hàng (chưa giảm giá) */
+function calcSubtotal() {
         let total = 0;
         for (let i = 0; i < cart.length; i++) {
             total = total + cart[i].price * cart[i].quantity;
@@ -37,23 +28,20 @@ document.addEventListener('DOMContentLoaded', function () {
         return total;
     }
 
-    // Tính tổng tiền cuối cùng (sau giảm giá + phí ship)
-    function calcTotal() {
-        const sub = calcSubtotal();
-        const discountAmount = Math.round(sub * discount / 100);
-        return sub - discountAmount + shippingFee;
-    }
+/** Tính tổng tiền cuối cùng (sau khi giảm giá và thêm phí ship) */
+function calcTotal() {
+    const sub = calcSubtotal();
+    const discountAmount = Math.round(sub * discount / 100);
+    return sub - discountAmount + shippingFee;
+}
 
-    // Tính số tiền được giảm từ coupon
-    function calcDiscountAmount() {
-        return Math.round(calcSubtotal() * discount / 100);
-    }
+/** Tính số tiền được giảm */
+function calcDiscountAmount() {
+    return Math.round(calcSubtotal() * discount / 100);
+}
 
-    // ────────────────────────────────────────────────────────
-    // CẬP NHẬT SỐ LƯỢNG SẢN PHẨM TẠI CHỖ (không re-render toàn bộ)
-    // Tham số: idx - chỉ số item trong mảng cart
-    // ────────────────────────────────────────────────────────
-    function updateItemInPlace(idx) {
+/** Cập nhật số lượng tại chỗ (không render lại list) */
+function updateItemInPlace(idx) {
         const item = cart[idx];
         const itemEl = document.querySelector('.cart-item[data-idx="' + idx + '"]');
         if (!itemEl) {
@@ -67,10 +55,8 @@ document.addEventListener('DOMContentLoaded', function () {
         updateSummary();
     }
 
-    // ────────────────────────────────────────────────────────
-    // RENDER TOÀN BỘ GIỎ HÀNG
-    // ────────────────────────────────────────────────────────
-    function renderCart() {
+/** Render danh sách giỏ hàng */
+function renderCart() {
         const list        = document.getElementById('cart-items-list');
         const emptyEl     = document.getElementById('cart-empty');
         const btnCheckout = document.getElementById('btn-to-step2');
@@ -145,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const newSize = e.target.value;
                 const currentItem = cart[idx];
 
-                // Tìm sản phẩm cùng id + size mới (dùng vòng for thay vì findIndex)
+                // Tìm sản phẩm cùng id + size mới
                 let existIdx = -1;
                 for (let j = 0; j < cart.length; j++) {
                     if (j !== idx && cart[j].id === currentItem.id && cart[j].size === newSize) {
@@ -178,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     cart[idx].quantity--;
                     updateItemInPlace(idx);
                 } else {
-                    // Số lượng = 1 → xóa với hiệu ứng trượt
+                    // Số lượng = 1 → xóa với hiệu ứng chuyển động
                     const itemEl = this.closest('.cart-item');
                     itemEl.style.transition = 'all 0.3s ease';
                     itemEl.style.opacity = '0';
@@ -230,9 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
         updateSummary();
     }
 
-    // ────────────────────────────────────────────────────────
-    // CẬP NHẬT BẢNG TỔNG KẾT ĐƠN HÀNG
-    // ────────────────────────────────────────────────────────
+    // Cập nhật bảng tổng kết đơn hàng
     function updateSummary() {
         const sub = calcSubtotal();
         const discAmt = calcDiscountAmount();
@@ -275,9 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // ────────────────────────────────────────────────────────
-    // XÓA TẤT CẢ SẢN PHẨM (có modal xác nhận)
-    // ────────────────────────────────────────────────────────
+    // Xóa tất cả sản phẩm
     const clearCartModal = document.getElementById('clear-cart-modal');
     const confirmClearBtn = document.getElementById('confirm-clear');
     const cancelClearBtn = document.getElementById('cancel-clear');
@@ -307,9 +289,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ────────────────────────────────────────────────────────
-    // MÃ GIẢM GIÁ (COUPON)
-    // ────────────────────────────────────────────────────────
+    // Mã giảm giá
     document.getElementById('btn-coupon').addEventListener('click', function () {
         const code = document.getElementById('coupon-input').value.trim().toUpperCase();
         const msg = document.getElementById('coupon-msg');
@@ -338,10 +318,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ────────────────────────────────────────────────────────
-    // MINI SUMMARY (tóm tắt đơn hàng bước 2 và 3)
-    // Tham số: containerId - ID phần tử chứa mini summary
-    // ────────────────────────────────────────────────────────
+    // Mini summary (tóm tắt đơn hàng bước 2 và 3)
     function renderMiniSummary(containerId) {
         const el = document.getElementById(containerId);
         if (!el) {
@@ -350,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const total = calcTotal();
 
-        // Render từng sản phẩm dạng mini (dùng vòng for thay vì map)
+        // Render từng sản phẩm dạng mini
         let itemsHTML = '';
         for (let i = 0; i < cart.length; i++) {
             const item = cart[i];
@@ -373,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '</div>';
         }
 
-        // Chuẩn bị HTML giảm giá (dùng if/else thay vì ternary trong template)
+        // Chuẩn bị HTML giảm giá
         let discountHTML = '';
         if (discount > 0) {
             discountHTML =
@@ -406,10 +383,7 @@ document.addEventListener('DOMContentLoaded', function () {
             '</div>';
     }
 
-    // ────────────────────────────────────────────────────────
-    // ĐIỀU HƯỚNG CÁC BƯỚC THANH TOÁN (1→4)
-    // Tham số: n - số bước muốn chuyển đến
-    // ────────────────────────────────────────────────────────
+    // Điều hướng các bước thanh toán
     function goToStep(n) {
         // Ẩn nội dung bước hiện tại
         document.getElementById('step-' + currentStep).classList.add('hidden');
@@ -443,7 +417,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Hiện nội dung bước mới
         document.getElementById('step-' + n).classList.remove('hidden');
 
-        // Đồng bộ lại tất cả step indicators (dùng vòng for)
+        // Đồng bộ lại tất cả step indicators
         const steps = document.querySelectorAll('.step');
         for (let i = 0; i < steps.length; i++) {
             steps[i].classList.remove('active');
@@ -487,9 +461,7 @@ document.addEventListener('DOMContentLoaded', function () {
         goToStep(3);
     });
 
-    // ────────────────────────────────────────────────────────
-    // TỰ ĐỘNG ĐIỀN THÔNG TIN GIAO HÀNG TỪ SESSION
-    // ────────────────────────────────────────────────────────
+    // Tự động điền thông tin giao hàng từ session
     function prefillShipping() {
         if (!session) {
             return;
@@ -526,9 +498,7 @@ document.addEventListener('DOMContentLoaded', function () {
         goToStep(1);
     });
 
-    // ────────────────────────────────────────────────────────
-    // VALIDATE FORM THÔNG TIN GIAO HÀNG
-    // ────────────────────────────────────────────────────────
+    // Validate form thông tin giao hàng
     function validateShipping() {
         const fields = [
             { id: 'ship-name',    label: 'Họ và tên' },
@@ -539,7 +509,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let valid = true;
 
-        // Duyệt qua từng field bắt buộc (dùng vòng for)
+        // Duyệt qua từng field bắt buộc 
         for (let i = 0; i < fields.length; i++) {
             const el = document.getElementById(fields[i].id);
             if (!el.value.trim()) {
@@ -564,9 +534,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return valid;
     }
 
-    // ────────────────────────────────────────────────────────
-    // PHƯƠNG THỨC VẬN CHUYỂN
-    // ────────────────────────────────────────────────────────
+    // Phương thức vận chuyển
     const shippingRadios = document.querySelectorAll('input[name="shipping"]');
     for (let i = 0; i < shippingRadios.length; i++) {
         shippingRadios[i].addEventListener('change', function () {
@@ -587,9 +555,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ────────────────────────────────────────────────────────
-    // PHƯƠNG THỨC THANH TOÁN
-    // ────────────────────────────────────────────────────────
+    // Phương thức thanh toán
     const payOptions = document.querySelectorAll('.pay-option');
     for (let i = 0; i < payOptions.length; i++) {
         payOptions[i].addEventListener('click', function () {
@@ -620,9 +586,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ────────────────────────────────────────────────────────
-    // ĐỊNH DẠNG TỰ ĐỘNG CÁC TRƯỜNG THÔNG TIN THẺ
-    // ────────────────────────────────────────────────────────
+    // Định dạng tự động các trường thông tin thẻ
     const cardNumber = document.getElementById('card-number');
     const cardHolder = document.getElementById('card-holder');
     const cardExpiry = document.getElementById('card-expiry');
@@ -675,9 +639,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ────────────────────────────────────────────────────────
-    // VALIDATE THÔNG TIN THẺ
-    // ────────────────────────────────────────────────────────
+    // Validate thông tin thẻ
     function validateCard() {
         const methodInput = document.querySelector('input[name="payment"]:checked');
         let method = '';
@@ -697,7 +659,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!/^\d{2}\/\d{2}$/.test(cardExpiry.value)) { cardExpiry.classList.add('error'); valid = false; }
         if (cvv.value.length !== 3)      { cvv.classList.add('error'); valid = false; }
 
-        // Xóa class lỗi khi nhập lại (dùng vòng for thay vì forEach)
+        // Xóa class lỗi khi nhập lại
         const errorFields = [cardNumber, cardHolder, cardExpiry, cvv];
         for (let i = 0; i < errorFields.length; i++) {
             errorFields[i].addEventListener('input', function () {
@@ -708,9 +670,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return valid;
     }
 
-    // ────────────────────────────────────────────────────────
-    // NÚT THANH TOÁN
-    // ────────────────────────────────────────────────────────
+    // Nút thanh toán
     document.getElementById('btn-pay').addEventListener('click', function () {
         if (!validateCard()) {
             showNotification('Vui lòng kiểm tra thông tin thẻ.', '#c0392b');
@@ -727,9 +687,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 2200);
     });
 
-    // ────────────────────────────────────────────────────────
-    // XỬ LÝ ĐƠN HÀNG SAU KHI THANH TOÁN THÀNH CÔNG
-    // ────────────────────────────────────────────────────────
+    // Xử lý đơn hàng sau khi thanh toán thành công
     function processOrder() {
         const orderId = '#ETH-' + Math.random().toString(36).substring(2, 8).toUpperCase();
         const now = new Date();
@@ -745,61 +703,23 @@ document.addEventListener('DOMContentLoaded', function () {
         cart = [];
         saveCart(cart);
         updateCartBadge();
-
-        spawnConfetti();
     }
 
-    // ────────────────────────────────────────────────────────
-    // HIỆU ỨNG CONFETTI (ĐẶT HÀNG THÀNH CÔNG)
-    // ────────────────────────────────────────────────────────
-    function spawnConfetti() {
-        const wrap = document.getElementById('confetti-wrap');
-        const colors = ['#003366', '#0056b3', '#FFD700', '#4CAF50', '#FF6B6B', '#fff'];
 
-        // Tạo 60 mảnh confetti (dùng vòng for)
-        for (let i = 0; i < 60; i++) {
-            (function (index) {
-                setTimeout(function () {
-                    const piece = document.createElement('div');
-                    piece.className = 'confetti-piece';
-                    piece.style.left = Math.random() * 100 + '%';
-                    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-                    piece.style.width = (Math.random() * 8 + 4) + 'px';
-                    piece.style.height = (Math.random() * 8 + 4) + 'px';
-                    if (Math.random() > 0.5) {
-                        piece.style.borderRadius = '50%';
-                    } else {
-                        piece.style.borderRadius = '2px';
-                    }
-                    piece.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
-                    piece.style.animationDelay = '0s';
-                    piece.style.top = '-10px';
-                    wrap.appendChild(piece);
-
-                    setTimeout(function () {
-                        piece.remove();
-                    }, 4000);
-                }, index * 40);
-            })(i);
-        }
-    }
-
-    // ────────────────────────────────────────────────────────
-    // KHỞI TẠO VÀ ĐỒNG BỘ DỮ LIỆU GIỎ HÀNG
+    // Khởi tạo và đồng bộ dữ liệu giỏ hàng
     // Tải products.json và cập nhật lại giá/tên/ảnh
-    // ────────────────────────────────────────────────────────
     async function initCart() {
         try {
             const res = await fetch('/assets/products.json');
             const products = await res.json();
 
             if (cart.length > 0) {
-                // Cập nhật từng sản phẩm (dùng vòng for thay vì map + find)
+                // Cập nhật từng sản phẩm
                 const updatedCart = [];
                 for (let i = 0; i < cart.length; i++) {
                     const item = cart[i];
 
-                    // Tìm sản phẩm tương ứng trong JSON (dùng vòng for thay vì find)
+                    // Tìm sản phẩm tương ứng trong JSON
                     let product = null;
                     for (let j = 0; j < products.length; j++) {
                         if (products[j].id === item.id) {
@@ -812,7 +732,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         const status = getProductStatus(product);
                         const finalPriceNum = status.discountedPrice;
 
-                        // Cập nhật thông tin mới nhất (gán thủ công thay vì spread)
+                        // Cập nhật thông tin mới nhất
                         updatedCart.push({
                             id:             item.id,
                             title:          product.name,
